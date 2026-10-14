@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Corrida de Aniversário GUGA 35K | Matinhos - PR</title>
+  <meta name="description" content="35 Anos • 35 Quilômetros • 1 Desafio entre amigos. Comemore o aniversário do Guga correndo na orla de Matinhos - PR no dia 20/11!">
+  
+  <!-- OpenGraph / Social Share -->
+  <meta property="og:title" content="Corrida de Aniversário GUGA 35K">
+  <meta property="og:description" content="Escolha seu número de peito, sua quilometragem e venha correr com o Guga no dia 20/11 em Matinhos-PR!">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/images/guga_medal.jpg">
+
+  <!-- Tailwind CSS CDN + Google Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#0a0b10',
+              card: '#12141e',
+              border: 'rgba(255, 255, 255, 0.08)',
+              amber: {
+                DEFAULT: '#F59E0B',
+                light: '#FBBF24',
+                dark: '#D97706',
+                glow: 'rgba(245, 158, 11, 0.25)'
+              },
+              purple: {
+                DEFAULT: '#8B5CF6',
+                light: '#A78BFA',
+                dark: '#6D28D9',
+                glow: 'rgba(139, 92, 246, 0.25)'
+              },
+              blue: {
+                DEFAULT: '#0284C7',
+                light: '#38BDF8',
+                dark: '#0369A1',
+                glow: 'rgba(2, 132, 199, 0.25)'
+              }
+            }
+          },
+          fontFamily: {
+            display: ['"Cabinet Grotesk"', '"Plus Jakarta Sans"', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #0a0b10;
+      color: #f1f5f9;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+    .glow-amber {
+      box-shadow: 0 0 40px -10px rgba(245, 158, 11, 0.35);
+    }
+    .glow-purple {
+      box-shadow: 0 0 40px -10px rgba(139, 92, 246, 0.35);
+    }
+    .glow-blue {
+      box-shadow: 0 0 40px -10px rgba(2, 132, 199, 0.35);
+    }
+    .glass-card {
+      background: rgba(18, 20, 30, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card-hover:hover {
+      border-color: rgba(245, 158, 11, 0.4);
+      transform: translateY(-2px);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    /* Pattern de grade atlética sutil */
+    .bg-grid-pattern {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+  </style>
+</head>
+<body class="bg-grid-pattern min-h-screen selection:bg-amber-500 selection:text-black">
+
+  <!-- Faixa de Alerta Superior / Countdown Bar -->
+  <header class="sticky top-0 z-50 glass-card border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 font-mono font-bold text-sm border border-amber-500/30">
+          35K
+        </span>
+        <div>
+          <span class="font-bold text-sm tracking-tight text-white block">GUGA 35 ANOS</span>
+          <span class="text-xs text-slate-400 flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            20/11 • 07:30 • Matinhos - PR
+          </span>
+        </div>
+      </div>
+
+      <!-- Mini Countdown Compacto -->
+      <div class="hidden sm:flex items-center gap-2 text-xs font-mono bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
+        <span class="text-slate-400">Largada em:</span>
+        <span id="header-countdown" class="text-amber-400 font-bold">Carregando...</span>
+      </div>
+
+      <a href="#inscricao" class="text-xs sm:text-sm font-bold bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 text-black px-4 py-2 rounded-xl hover:brightness-110 active:scale-95 transition-all shadow-md shadow-amber-500/20">
+        Garantir Meu Número
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="relative pt-8 pb-16 md:pt-16 md:pb-24 overflow-hidden">
+      <!-- Glows de Fundo (Âmbar, Roxo e Azul) -->
+      <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-gradient-to-tr from-purple-600/20 via-blue-600/20 to-amber-500/20 blur-[120px] pointer-events-none rounded-full"></div>
+      
+      <div class="max-w-6xl mx-auto px-4 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          
+          <!-- Coluna Texto & Apelo -->
+          <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+            
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-purple-500/10 via-blue-500/10 to-amber-500/10 border border-amber-500/30 text-xs font-semibold text-amber-300">
+              <span class="text-amber-400">🔥</span> Desafio Oficial Entre Amigos • 1km por Ano de Vida
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.05] text-white">
+              CORRIDA DE <br class="hidden sm:inline">
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-purple-400 to-sky-400">
+                ANIVERSÁRIO
+              </span> <br>
+              GUGA <span class="text-amber-400 font-mono">35K</span>
+            </h1>
+
+            <p class="text-slate-300 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
+              "Para comemorar meus <strong class="text-white">35 anos</strong>, vou correr <strong class="text-amber-400">1 quilômetro por ano</strong> na orla de Matinhos. E pra ficar ainda melhor, quero você correndo ao meu lado no seu ritmo!"
+            </p>
+
+            <!-- Cards Informativos Rápidos -->
+            <div class="grid grid-cols-3 gap-3 max-w-lg mx-auto lg:mx-0 pt-2">
+              <div class="glass-card rounded-2xl p-3 text-center border-l-2 border-l-amber-500">
+                <span class="text-slate-400 text-xs block font-mono">DATA</span>
+                <span class="text-white font-bold text-base sm:text-lg">20/11</span>
+                <span class="text-[11px] text-amber-400 block font-medium">Quarta-feira</span>
+              </div>
+              <div class="glass-card rounded-2xl p-3 text-center border-l-2 border-l-purple-500">
+                <span class="text-slate-400 text-xs block font-mono">LARGADA</span>
+                <span class="text-white font-bold text-base sm:text-lg">07:30</span>
+                <span class="text-[11px] text-purple-300 block font-medium">Pontual</span>
+              </div>
+              <div class="glass-card rounded-2xl p-3 text-center border-l-2 border-l-blue-500">
+                <span class="text-slate-400 text-xs block font-mono">LOCAL</span>
+                <span class="text-white font-bold text-base sm:text-lg">Matinhos</span>
+                <span class="text-[11px] text-sky-400 block font-medium">Litoral PR</span>
+              </div>
+            </div>
+
+            <!-- Countdown Timer Grande -->
+            <div class="glass-card rounded-2xl p-4 sm:p-5 border border-white/10 max-w-lg mx-auto lg:mx-0">
+              <div class="flex items-center justify-between mb-3 text-xs text-slate-400">
+                <span class="uppercase tracking-wider font-semibold text-amber-400 flex items-center gap-1.5">
+                  ⏱️ Contagem Regressiva
+                </span>
+                <span class="font-mono text-slate-400">Até 20/Nov • 07:30</span>
+              </div>
+              <div class="grid grid-cols-4 gap-2 text-center font-mono">
+                <div class="bg-black/40 rounded-xl p-2 border border-white/5">
+                  <span id="cd-days" class="text-2xl sm:text-3xl font-extrabold text-amber-400 block">--</span>
+                  <span class="text-[10px] text-slate-400 uppercase tracking-wider">Dias</span>
+                </div>
+                <div class="bg-black/40 rounded-xl p-2 border border-white/5">
+                  <span id="cd-hours" class="text-2xl sm:text-3xl font-extrabold text-white block">--</span>
+                  <span class="text-[10px] text-slate-400 uppercase tracking-wider">Horas</span>
+                </div>
+                <div class="bg-black/40 rounded-xl p-2 border border-white/5">
+                  <span id="cd-mins" class="text-2xl sm:text-3xl font-extrabold text-purple-400 block">--</span>
+                  <span class="text-[10px] text-slate-400 uppercase tracking-wider">Min</span>
+                </div>
+                <div class="bg-black/40 rounded-xl p-2 border border-white/5">
+                  <span id="cd-secs" class="text-2xl sm:text-3xl font-extrabold text-sky-400 block">--</span>
+                  <span class="text-[10px] text-slate-400 uppercase tracking-wider">Seg</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- CTAs -->
+            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+              <a href="#inscricao" class="w-full sm:w-auto text-center font-extrabold text-black bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 px-7 py-4 rounded-2xl hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-amber-500/25 text-base flex items-center justify-center gap-2">
+                <span>🏃‍♂️</span> Escolher Meu Número no Pelotão
+              </a>
+              <a href="#pelotao" class="w-full sm:w-auto text-center font-bold text-white glass-card px-6 py-4 rounded-2xl hover:bg-white/10 transition-all text-base border border-white/10 flex items-center justify-center gap-2">
+                Ver Quem Já Confirmou <span class="text-slate-400">↓</span>
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Coluna Foto do Guga em Destaque -->
+          <div class="lg:col-span-5 relative">
+            <div class="relative mx-auto max-w-sm sm:max-w-md">
+              
+              <!-- Glow Aura -->
+              <div class="absolute -inset-1 rounded-3xl bg-gradient-to-tr from-purple-600 via-sky-500 to-amber-500 opacity-40 blur-xl"></div>
+              
+              <div class="relative glass-card rounded-3xl overflow-hidden border border-white/15 p-2 shadow-2xl">
+                <div class="relative rounded-2xl overflow-hidden aspect-[3/4]">
+                  <img 
+                    src="assets/images/guga_runner.jpg" 
+                    alt="Guga Nogueira correndo no nascer do sol" 
+                    class="w-full h-full object-cover object-center filter saturate-110 hover:scale-105 transition-transform duration-700"
+                    loading="eager"
+                  >
+                  <!-- Gradiente de sobreposição inferior -->
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                  
+                  <!-- Tag no rodapé da foto -->
+                  <div class="absolute bottom-4 left-4 right-4 text-left">
+                    <span class="inline-block px-2.5 py-1 rounded-md bg-amber-500/90 text-black font-mono font-bold text-xs mb-1">
+                      PACER 35KM • O ANIVERSARIANTE
+                    </span>
+                    <h3 class="text-xl font-bold text-white tracking-tight">Luiz "Guga" Nogueira</h3>
+                    <p class="text-xs text-slate-300">
+                      "35 anos, 35k no asfalto e resenha com os melhores amigos!"
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Badge Flutuante Esportivo -->
+              <div class="absolute -bottom-4 -right-2 sm:-right-4 glass-card px-4 py-3 rounded-2xl border border-amber-500/40 shadow-xl flex items-center gap-3 bg-[#0a0b10]/90">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-black text-xl font-black">
+                  🍗
+                </div>
+                <div>
+                  <span class="text-[11px] text-amber-400 font-bold block uppercase tracking-wider">Pós-Corrida</span>
+                  <span class="text-sm font-bold text-white block">Almoço de Recuperação</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- O DESAFIO E O ALMOÇO -->
+    <section class="py-12 border-y border-white/10 bg-black/30 relative">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+          
+          <!-- Card O Desafio -->
+          <div class="glass-card rounded-3xl p-6 sm:p-8 border-l-4 border-l-amber-500 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-2xl mb-4 border border-amber-500/20">
+                🎯
+              </div>
+              <h2 class="text-2xl font-bold text-white mb-3">Como Funciona o Desafio?</h2>
+              <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-4">
+                O Guga vai encarar a prova completa de <strong class="text-amber-400">35 km</strong>. Mas a corrida é para <strong class="text-white">todo mundo participar</strong>, seja qual for o seu ritmo!
+              </p>
+              <ul class="space-y-2.5 text-sm text-slate-300">
+                <li class="flex items-center gap-2">
+                  <span class="text-emerald-400 font-bold">✓</span>
+                  <span><strong>Escolha sua distância:</strong> 5km, 10km, 12km, 21km ou os 35km inteiros.</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-emerald-400 font-bold">✓</span>
+                  <span><strong>Escolha seu número:</strong> Cada atleta pega um número de peito no pelotão.</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-emerald-400 font-bold">✓</span>
+                  <span><strong>Vibe pura:</strong> Ritmo de celebração, amizade e parceria no litoral!</span>
+                </li>
+              </ul>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/10 text-xs text-slate-400">
+              📍 Concentração às 07:00 • Largada pontual às 07:30
+            </div>
+          </div>
+
+          <!-- Card O Almoço de Recuperação -->
+          <div class="glass-card rounded-3xl p-6 sm:p-8 border-l-4 border-l-purple-500 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-2xl mb-4 border border-purple-500/20">
+                🍻
+              </div>
+              <h2 class="text-2xl font-bold text-white mb-3">Almoço de Recuperação</h2>
+              <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-4">
+                Depois de gastar as calorias no asfalto, teremos o tradicional <strong class="text-purple-300">Almoço de Confraternização</strong> para repor as energias com muita resenha gelada.
+              </p>
+              <div class="bg-purple-950/30 border border-purple-500/20 rounded-2xl p-4 text-sm text-purple-200">
+                <p class="font-medium">
+                  "Quem corre almoça, quem caminha almoça, e quem foi só pra apoiar também almoça! A festa é nossa."
+                </p>
+              </div>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/10 text-xs text-slate-400">
+              🎉 Confirme sua presença no formulário abaixo para organizarmos as mesas!
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- A MEDALHA OFICIAL & PIX -->
+    <section id="medalha" class="py-16 md:py-24 relative overflow-hidden">
+      <!-- Glow Âmbar e Azul -->
+      <div class="absolute -right-20 top-1/2 -translate-y-1/2 w-96 h-96 bg-amber-500/15 blur-[120px] pointer-events-none rounded-full"></div>
+      
+      <div class="max-w-6xl mx-auto px-4 relative z-10">
+        
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="inline-block px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono font-semibold uppercase mb-3">
+            Item Oficial de Colecionador
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            A Medalha do Desafio <span class="text-amber-400">35K</span>
+          </h2>
+          <p class="text-slate-400 text-sm sm:text-base mt-2">
+            Desenhada exclusivamente para a prova de Matinhos - PR. Eternize essa corrida histórica no seu quadro de medalhas!
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- Foto da Medalha -->
+          <div class="lg:col-span-5 text-center">
+            <div class="relative inline-block max-w-sm mx-auto">
+              <div class="absolute -inset-2 bg-gradient-to-r from-amber-500 to-purple-600 rounded-3xl opacity-30 blur-xl"></div>
+              <div class="relative glass-card rounded-3xl p-3 border border-amber-500/30 shadow-2xl">
+                <img 
+                  src="assets/images/guga_medal.jpg" 
+                  alt="Medalha Oficial Corrida de Aniversário Guga 35K Matinhos PR" 
+                  class="rounded-2xl w-full object-cover max-h-[460px] filter contrast-105 hover:scale-105 transition-transform duration-500"
+                >
+                <div class="p-3 text-center">
+                  <span class="text-xs font-mono text-slate-400 block">Gravação em Alto-Relevo Bronze</span>
+                  <span class="text-sm font-bold text-amber-400">Matinhos - PR • 35K</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Informações de Custo e Pagamento Pix -->
+          <div class="lg:col-span-7 space-y-6">
+            
+            <div class="glass-card rounded-3xl p-6 sm:p-8 border border-white/10 space-y-5">
+              <div class="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <span class="text-xs text-slate-400 uppercase tracking-wider block font-mono">Custo de Fabricação</span>
+                  <div class="flex items-baseline gap-2">
+                    <span class="text-4xl sm:text-5xl font-black text-amber-400">R$ 40<span class="text-xl">,00</span></span>
+                    <span class="text-xs text-slate-400">/ unidade</span>
+                  </div>
+                </div>
+                <span class="px-3.5 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-semibold">
+                  ✓ Preço de Custo Real
+                </span>
+              </div>
+
+              <p class="text-slate-300 text-sm leading-relaxed">
+                A corrida não tem taxa de inscrição lucrativa! O valor de <strong class="text-white">R$ 40,00</strong> é cobrado <em>estritamente para custear a fundição e a fita personalizada da medalha</em> para quem quiser guardar essa lembrança.
+              </p>
+
+              <!-- Box Chave PIX -->
+              <div class="bg-black/50 border border-amber-500/30 rounded-2xl p-5 space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-mono text-amber-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
+                    🔑 Chave Pix (CPF)
+                  </span>
+                  <span class="text-xs text-slate-400">Favorecido: Luiz Augusto Nogueira</span>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <input 
+                    type="text" 
+                    id="pix-key-input" 
+                    value="080.702.289-62" 
+                    readonly 
+                    class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 font-mono text-amber-300 font-bold text-base sm:text-lg select-all focus:outline-none"
+                  >
+                  <button 
+                    onclick="copyPixKey()" 
+                    id="copy-pix-btn"
+                    class="bg-amber-500 hover:bg-amber-400 text-black font-bold px-5 py-3 rounded-xl transition-all active:scale-95 flex items-center gap-2 whitespace-nowrap text-sm shadow-md"
+                  >
+                    <span id="copy-icon">📋</span>
+                    <span id="copy-text">Copiar Pix</span>
+                  </button>
+                </div>
+                
+                <p id="copy-feedback" class="text-xs text-emerald-400 font-medium hidden">
+                  ✓ Chave Pix copiada para a área de transferência!
+                </p>
+              </div>
+
+              <div class="text-xs text-slate-400 flex items-center gap-2">
+                <span>💡</span>
+                <span>Após fazer o Pix, você pode anexar o comprovante na conversa do WhatsApp ao confirmar sua inscrição!</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- GRADE DO PELOTÃO (NÚMEROS 1 A 40) -->
+    <section id="pelotao" class="py-16 bg-black/40 border-y border-white/10 relative">
+      <div class="max-w-6xl mx-auto px-4">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+          <div>
+            <span class="text-xs font-mono font-semibold text-sky-400 uppercase tracking-wider block mb-1">
+              Lista Oficial de Largada
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Grade do Pelotão <span class="text-amber-400 font-mono">(1 a 40)</span>
+            </h2>
+            <p class="text-slate-400 text-sm mt-1">
+              Escolha seu número de peito abaixo. Clique em qualquer vaga livre para se inscrever!
+            </p>
+          </div>
+
+          <!-- Estatísticas Rápidas do Pelotão -->
+          <div class="flex items-center gap-3 text-xs font-mono">
+            <div class="glass-card px-3 py-2 rounded-xl border border-white/10">
+              <span class="text-slate-400 block">Confirmados:</span>
+              <span id="stat-confirmados" class="text-amber-400 font-bold text-sm">6</span>
+            </div>
+            <div class="glass-card px-3 py-2 rounded-xl border border-white/10">
+              <span class="text-slate-400 block">Vagas Livres:</span>
+              <span id="stat-livres" class="text-emerald-400 font-bold text-sm">34</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grade de Números -->
+        <div id="grid-pelotao" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+          <!-- Renderizado via JavaScript dinâmico -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FORMULÁRIO DE INSCRIÇÃO & CONFIRMAÇÃO -->
+    <section id="inscricao" class="py-16 md:py-24 relative overflow-hidden">
+      <!-- Glow Roxo e Âmbar -->
+      <div class="absolute left-1/2 bottom-10 -translate-x-1/2 w-[600px] h-[350px] bg-purple-600/15 blur-[140px] pointer-events-none rounded-full"></div>
+
+      <div class="max-w-3xl mx-auto px-4 relative z-10">
+        
+        <div class="text-center mb-10">
+          <span class="inline-block px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-mono font-semibold uppercase mb-3">
+            Garantir Presença
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+            Confirme Seu Lugar no <span class="text-amber-400">35K</span>
+          </h2>
+          <p class="text-slate-400 text-sm sm:text-base mt-2">
+            Preencha seus dados para marcar seu número de peito e mandar seu recado pro Guga no WhatsApp!
+          </p>
+        </div>
+
+        <!-- Formulário Card -->
+        <div class="glass-card rounded-3xl p-6 sm:p-10 border border-white/10 shadow-2xl">
+          
+          <form id="form-inscricao" class="space-y-6" onsubmit="handleInscricao(event)">
+            
+            <!-- Nome -->
+            <div>
+              <label for="runner-name" class="block text-xs font-mono text-slate-300 font-semibold uppercase tracking-wider mb-2">
+                Seu Nome ou Apelido <span class="text-amber-400">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="runner-name" 
+                name="nome"
+                required
+                placeholder="Ex: João Silva, Paulinho, Ana..." 
+                class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3.5 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 text-base"
+              >
+            </div>
+
+            <!-- Seleção de Distância -->
+            <div>
+              <label class="block text-xs font-mono text-slate-300 font-semibold uppercase tracking-wider mb-2">
+                Distância que vai correr <span class="text-amber-400">*</span>
+              </label>
+              <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-2" id="distance-buttons">
+                <button type="button" onclick="setDistance('5km')" class="dist-btn glass-card py-2.5 rounded-xl text-sm font-bold font-mono hover:border-amber-400 transition-all text-slate-300">5km</button>
+                <button type="button" onclick="setDistance('10km')" class="dist-btn glass-card py-2.5 rounded-xl text-sm font-bold font-mono hover:border-amber-400 transition-all text-slate-300">10km</button>
+                <button type="button" onclick="setDistance('12km')" class="dist-btn glass-card py-2.5 rounded-xl text-sm font-bold font-mono hover:border-amber-400 transition-all text-slate-300">12km</button>
+                <button type="button" onclick="setDistance('15km')" class="dist-btn glass-card py-2.5 rounded-xl text-sm font-bold font-mono hover:border-amber-400 transition-all text-slate-300">15km</button>
+                <button type="button" onclick="setDistance('21km')" class="dist-btn glass-card py-2.5 rounded-xl text-sm font-bold font-mono hover:border-amber-400 transition-all text-slate-300">21km</button>
+                <button type="button" onclick="setDistance('35km')" class="dist-btn glass-card py-2.5 rounded-xl text-sm font-bold font-mono hover:border-amber-400 transition-all text-amber-400 border-amber-500/40">35km 🔥</button>
+              </div>
+              <input 
+                type="text" 
+                id="runner-distance" 
+                name="distancia"
+                required
+                placeholder="Ou digite outra distância (ex: 8km, 7km caminhada...)"
+                class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm font-mono"
+              >
+            </div>
+
+            <!-- Escolha do Número de Peito -->
+            <div>
+              <label for="runner-slot" class="block text-xs font-mono text-slate-300 font-semibold uppercase tracking-wider mb-2">
+                Número de Peito no Pelotão <span class="text-amber-400">*</span>
+              </label>
+              <select 
+                id="runner-slot" 
+                name="numero_peito"
+                required
+                class="w-full bg-[#12141e] border border-white/10 rounded-2xl px-4 py-3.5 text-white focus:outline-none focus:border-amber-400 text-base font-mono cursor-pointer"
+              >
+                <option value="">Selecione um número vago (1 a 40)...</option>
+                <!-- Preenchido via JavaScript dinamicamente -->
+              </select>
+              <span class="text-[11px] text-slate-400 block mt-1.5">
+                💡 Dica: Se quiser um número específico, confira a grade acima!
+              </span>
+            </div>
+
+            <!-- Quer Medalha? -->
+            <div class="glass-card rounded-2xl p-4 border border-white/10">
+              <span class="block text-xs font-mono text-amber-400 font-semibold uppercase tracking-wider mb-2">
+                Medalha Oficial de Metal (R$ 40,00)
+              </span>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <label class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer hover:border-amber-400 transition-all">
+                  <input type="radio" name="quer_medalha" value="Sim (R$ 40,00)" checked class="text-amber-500 focus:ring-amber-400">
+                  <span class="text-sm font-medium text-white">Sim, quero a medalha oficial (+ R$ 40)</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer hover:border-purple-400 transition-all">
+                  <input type="radio" name="quer_medalha" value="Não" class="text-purple-500 focus:ring-purple-400">
+                  <span class="text-sm font-medium text-slate-300">Não, vou só correr e resenhar</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Vai no Almoço? -->
+            <div class="glass-card rounded-2xl p-4 border border-white/10">
+              <span class="block text-xs font-mono text-purple-300 font-semibold uppercase tracking-wider mb-2">
+                Presença no Almoço de Recuperação
+              </span>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <label class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer hover:border-purple-400 transition-all">
+                  <input type="radio" name="vai_almoco" value="Sim, com certeza!" checked class="text-purple-500 focus:ring-purple-400">
+                  <span class="text-sm font-medium text-white">Sim! Almoço garantido pós-corrida</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer hover:border-slate-500 transition-all">
+                  <input type="radio" name="vai_almoco" value="Não poderei ficar pro almoço" class="text-slate-500 focus:ring-slate-400">
+                  <span class="text-sm font-medium text-slate-300">Não poderei ficar pro almoço</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Recado pro Aniversariante -->
+            <div>
+              <label for="runner-message" class="block text-xs font-mono text-slate-300 font-semibold uppercase tracking-wider mb-2">
+                Recado pro Guga (Mensagem de Aniversário) 🎉
+              </label>
+              <textarea 
+                id="runner-message" 
+                name="recado"
+                rows="3" 
+                placeholder="Manda aquele incentivo, piada interna ou felicitação pelos 35 anos..." 
+                class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm"
+              ></textarea>
+            </div>
+
+            <!-- Botão Submit -->
+            <button 
+              type="submit" 
+              class="w-full py-4 px-6 rounded-2xl font-extrabold text-black bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:brightness-110 active:scale-98 transition-all shadow-xl shadow-amber-500/25 text-base sm:text-lg flex items-center justify-center gap-3 cursor-pointer"
+            >
+              <span>🚀</span> Confirmar Presença & Enviar no WhatsApp
+            </button>
+
+            <p class="text-center text-xs text-slate-400">
+              Ao clicar, você garante seu número na lista e enviará a confirmação diretamente para o WhatsApp do Guga (<strong class="text-slate-300">+55 41 9733-3676</strong>).
+            </p>
+
+          </form>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- MURAL DE MENSAGENS -->
+    <section class="py-12 bg-black/50 border-t border-white/10">
+      <div class="max-w-4xl mx-auto px-4">
+        <div class="text-center mb-8">
+          <h3 class="text-2xl font-bold text-white tracking-tight">
+            Mural de Recados pro Aniversariante 💬
+          </h3>
+          <p class="text-xs text-slate-400 mt-1">
+            Mensagens deixadas pelos atletas confirmados
+          </p>
+        </div>
+
+        <div id="mural-mensagens" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Mensagens renderizadas via JS -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="py-10 border-t border-white/10 text-center text-xs text-slate-500 space-y-2">
+    <p>
+      🎉 <strong class="text-slate-300">Corrida de Aniversário GUGA 35K</strong> • Matinhos - PR • 20 de Novembro
+    </p>
+    <p class="text-[11px]">
+      Criado com carinho para celebrar os 35 anos do Luiz "Guga" Nogueira.
+    </p>
+  </footer>
+
+  <!-- SCRIPT PRINCIPAL -->
+  <script>
+    // 1. DADOS INICIAIS DO PELOTÃO
+    const INITIAL_RUNNERS = {
+      1: { name: "Guga", distance: "35km", medal: "Sim", lunch: "Sim", note: "Pacer dos 35km! Bora pra cima família!" },
+      2: { name: "Bera", distance: "35km", medal: "Sim", lunch: "Sim", note: "Fechado nos 35km junto com o aniversariante!" },
+      3: { name: "Gabi", distance: "10km", medal: "Sim", lunch: "Sim", note: "Parabéns Gugão! 10km na conta!" },
+      4: { name: "Nelinho", distance: "5km", medal: "Sim", lunch: "Sim", note: "5km garantido e presença VIP no almoço!" },
+      5: { name: "Lucas", distance: "5km", medal: "Sim", lunch: "Sim", note: "5k de pura alegria e recuperação no prato!" },
+      6: { name: "Picanha", distance: "12km", medal: "Sim", lunch: "Sim", note: "12km de respeito pra honrar o apelido!" }
+    };
+
+    // Recupera dados salvos localmente ou usa os iniciais
+    function getStoredRunners() {
+      const stored = localStorage.getItem('guga35k_runners');
+      if (stored) {
+        try {
+          return { ...INITIAL_RUNNERS, ...JSON.parse(stored) };
+        } catch (e) {
+          return { ...INITIAL_RUNNERS };
+        }
+      }
+      return { ...INITIAL_RUNNERS };
+    }
+
+    function saveRunners(runners) {
+      localStorage.setItem('guga35k_runners', JSON.stringify(runners));
+    }
+
+    // 2. RENDER DA GRADE DE NÚMEROS E SELECT
+    function renderPelotao() {
+      const runners = getStoredRunners();
+      const grid = document.getElementById('grid-pelotao');
+      const select = document.getElementById('runner-slot');
+      
+      grid.innerHTML = '';
+      select.innerHTML = '<option value="">Selecione um número vago (1 a 40)...</option>';
+
+      let totalConfirmados = 0;
+      const MAX_SLOTS = 40;
+
+      for (let i = 1; i <= MAX_SLOTS; i++) {
+        const runner = runners[i];
+        const isOccupied = !!runner;
+        if (isOccupied) totalConfirmados++;
+
+        // Card da Grade
+        const card = document.createElement('div');
+        if (isOccupied) {
+          const isGuga = i === 1;
+          card.className = `glass-card rounded-2xl p-3.5 border ${isGuga ? 'border-amber-400/60 bg-amber-500/10' : 'border-white/10'} relative overflow-hidden transition-all`;
+          card.innerHTML = `
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="font-mono text-xs font-bold px-2 py-0.5 rounded-md ${isGuga ? 'bg-amber-400 text-black' : 'bg-white/10 text-amber-400'}">
+                #${i} ${isGuga ? '👑' : ''}
+              </span>
+              <span class="text-xs font-mono font-bold text-sky-300 bg-sky-950/40 px-2 py-0.5 rounded-md border border-sky-500/20">
+                ${runner.distance}
+              </span>
+            </div>
+            <div class="font-bold text-sm text-white truncate">${runner.name}</div>
+            <div class="text-[11px] text-slate-400 flex items-center justify-between mt-1">
+              <span>${runner.medal === 'Sim' || runner.medal.includes('Sim') ? '🏅 Medalha' : '🏃‍♂️ Atleta'}</span>
+              <span class="text-emerald-400">✓ Confirmado</span>
+            </div>
+          `;
+        } else {
+          // Vaga Livre
+          card.className = 'glass-card glass-card-hover rounded-2xl p-3.5 border border-dashed border-white/20 hover:border-amber-400 cursor-pointer text-center group transition-all';
+          card.onclick = () => selectSlotFromGrid(i);
+          card.innerHTML = `
+            <div class="font-mono text-xs text-slate-500 group-hover:text-amber-400 font-bold mb-1">
+              #${i}
+            </div>
+            <div class="text-xs text-slate-400 group-hover:text-white font-medium">
+              Vaga Aberta
+            </div>
+            <div class="text-[11px] text-amber-400/80 group-hover:text-amber-300 mt-1 font-semibold flex items-center justify-center gap-1">
+              <span>+</span> Escolher
+            </div>
+          `;
+
+          // Opção no Dropdown
+          const option = document.createElement('option');
+          option.value = i;
+          option.textContent = `#${i} - Vaga Disponível`;
+          select.appendChild(option);
+        }
+
+        grid.appendChild(card);
+      }
+
+      // Atualiza Estatísticas
+      document.getElementById('stat-confirmados').textContent = totalConfirmados;
+      document.getElementById('stat-livres').textContent = MAX_SLOTS - totalConfirmados;
+
+      // Renderiza Mural
+      renderMural(runners);
+    }
+
+    function selectSlotFromGrid(slotNum) {
+      const select = document.getElementById('runner-slot');
+      select.value = slotNum;
+      
+      // Scroll suave até o formulário
+      document.getElementById('inscricao').scrollIntoView({ behavior: 'smooth' });
+      
+      // Destaque visual no campo
+      select.classList.add('ring-2', 'ring-amber-400');
+      setTimeout(() => {
+        select.classList.remove('ring-2', 'ring-amber-400');
+      }, 1500);
+    }
+
+    function setDistance(dist) {
+      document.getElementById('runner-distance').value = dist;
+      
+      // Atualiza estilo dos botões
+      document.querySelectorAll('.dist-btn').forEach(btn => {
+        if (btn.textContent.includes(dist)) {
+          btn.classList.add('border-amber-400', 'text-amber-400');
+        } else {
+          btn.classList.remove('border-amber-400', 'text-amber-400');
+        }
+      });
+    }
+
+    // 3. RENDER DO MURAL DE MENSAGENS
+    function renderMural(runners) {
+      const mural = document.getElementById('mural-mensagens');
+      mural.innerHTML = '';
+
+      Object.keys(runners).forEach(slot => {
+        const r = runners[slot];
+        if (r.note && r.note.trim()) {
+          const item = document.createElement('div');
+          item.className = 'glass-card rounded-2xl p-4 border border-white/5 space-y-2';
+          item.innerHTML = `
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm text-amber-300">#${slot} ${r.name} (${r.distance})</span>
+              <span class="text-[11px] text-slate-500 font-mono">20/11</span>
+            </div>
+            <p class="text-xs text-slate-300 italic">"${r.note}"</p>
+          `;
+          mural.appendChild(item);
+        }
+      });
+    }
+
+    // 4. SUBMIT DO FORMULÁRIO COM CONFETTI E WHATSAPP
+    function handleInscricao(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('runner-name').value.trim();
+      const distance = document.getElementById('runner-distance').value.trim();
+      const slot = document.getElementById('runner-slot').value;
+      const medalRadios = document.getElementsByName('quer_medalha');
+      let medal = 'Sim (R$ 40,00)';
+      for (const r of medalRadios) {
+        if (r.checked) medal = r.value;
+      }
+
+      const lunchRadios = document.getElementsByName('vai_almoco');
+      let lunch = 'Sim';
+      for (const r of lunchRadios) {
+        if (r.checked) lunch = r.value;
+      }
+
+      const note = document.getElementById('runner-message').value.trim();
+
+      if (!slot) {
+        alert('Por favor, escolha um número de peito vago no pelotão!');
+        return;
+      }
+
+      // Salva no LocalStorage
+      const currentRunners = getStoredRunners();
+      currentRunners[slot] = {
+        name,
+        distance,
+        medal,
+        lunch,
+        note
+      };
+      saveRunners(currentRunners);
+
+      // Efeito de Confetti Triunfante
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#F59E0B', '#8B5CF6', '#0284C7', '#ffffff']
+        });
+      }
+
+      // Atualiza a tela imediatamente
+      renderPelotao();
+
+      // Monta Mensagem Formatada para WhatsApp do Guga
+      // Número do Guga: +55 41 9733-3676
+      const zapPhone = '554197333676';
+      
+      const zapText = `🏃‍♂️ *CONFIRMAÇÃO — CORRIDA GUGA 35K* 🎉%0A%0A` +
+        `Fala Gugão! Confirmei minha presença na sua corrida de 35 anos!%0A%0A` +
+        `👤 *Nome:* ${encodeURIComponent(name)}%0A` +
+        `🔢 *Número de Peito:* #${slot}%0A` +
+        `📍 *Distância:* ${encodeURIComponent(distance)}%0A` +
+        `🏅 *Medalha Comemorativa:* ${encodeURIComponent(medal)}%0A` +
+        `🍻 *Almoço de Recuperação:* ${encodeURIComponent(lunch)}%0A` +
+        (note ? `💬 *Recado:* "${encodeURIComponent(note)}"%0A%0A` : `%0A`) +
+        `Bora comemorar no asfalto de Matinhos! Tamo junto! 🔥`;
+
+      const zapUrl = `https://wa.me/${zapPhone}?text=${zapText}`;
+
+      // Abre o WhatsApp
+      setTimeout(() => {
+        window.open(zapUrl, '_blank');
+      }, 700);
+
+      alert(`Sensacional, ${name}! Seu número #${slot} foi reservado com sucesso no pelotão! Estamos abrindo o WhatsApp do Guga para você enviar a confirmação.`);
+    }
+
+    // 5. COPIAR CHAVE PIX
+    function copyPixKey() {
+      const pixInput = document.getElementById('pix-key-input');
+      pixInput.select();
+      pixInput.setSelectionRange(0, 99999);
+
+      navigator.clipboard.writeText(pixInput.value).then(() => {
+        const btn = document.getElementById('copy-pix-btn');
+        const icon = document.getElementById('copy-icon');
+        const text = document.getElementById('copy-text');
+        const feedback = document.getElementById('copy-feedback');
+
+        icon.textContent = '✓';
+        text.textContent = 'Copiado!';
+        btn.classList.replace('bg-amber-500', 'bg-emerald-500');
+        feedback.classList.remove('hidden');
+
+        setTimeout(() => {
+          icon.textContent = '📋';
+          text.textContent = 'Copiar Pix';
+          btn.classList.replace('bg-emerald-500', 'bg-amber-500');
+          feedback.classList.add('hidden');
+        }, 3000);
+      });
+    }
+
+    // 6. COUNTDOWN TIMER ATÉ 20/11/2026 07:30 (Matinhos-PR)
+    function initCountdown() {
+      // Data do evento: 20 de Novembro, 07:30
+      // Usando o ano corrente do sistema
+      const eventDate = new Date(2026, 10, 20, 7, 30, 0); // Mês 10 = Novembro (0-indexed)
+
+      function update() {
+        const now = new Date();
+        const diff = eventDate - now;
+
+        if (diff <= 0) {
+          document.getElementById('header-countdown').textContent = "É HOJE! LARGADA 07:30!";
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const mins = Math.floor((diff / 1000 / 60) % 60);
+        const secs = Math.floor((diff / 1000) % 60);
+
+        const cdDays = document.getElementById('cd-days');
+        const cdHours = document.getElementById('cd-hours');
+        const cdMins = document.getElementById('cd-mins');
+        const cdSecs = document.getElementById('cd-secs');
+
+        if (cdDays) cdDays.textContent = String(days).padStart(2, '0');
+        if (cdHours) cdHours.textContent = String(hours).padStart(2, '0');
+        if (cdMins) cdMins.textContent = String(mins).padStart(2, '0');
+        if (cdSecs) cdSecs.textContent = String(secs).padStart(2, '0');
+
+        const headerCd = document.getElementById('header-countdown');
+        if (headerCd) {
+          headerCd.textContent = `${days}d ${hours}h ${mins}m ${secs}s`;
+        }
+      }
+
+      update();
+      setInterval(update, 1000);
+    }
+
+    // INICIALIZAÇÃO
+    window.addEventListener('DOMContentLoaded', () => {
+      renderPelotao();
+      initCountdown();
+    });
+  </script>
+</body>
+</html>

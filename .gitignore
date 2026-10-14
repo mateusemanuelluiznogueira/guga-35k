@@ -1,0 +1,8 @@
+.netlify
+.supabase
+supabase/.temp
+node_modules
+__pycache__
+*.pyc
+Thumbs.db
+Desktop.ini
