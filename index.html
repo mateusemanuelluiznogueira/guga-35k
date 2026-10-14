@@ -394,12 +394,7 @@
       text-align: left;
     }
 
-    .bib-guga:not(.bib-in) {
-      border-color: var(--sun);
-      animation: guga-glow 2.8s ease-in-out infinite;
-    }
-
-    .bib-in { animation: bib-in 0.45s ease both; }
+    .bib-guga { border-color: var(--sun); }
 
     .bib-free {
       font: inherit;
@@ -509,7 +504,6 @@
       border-color: var(--sun);
       background: #fff4ee;
       color: #9a3412;
-      animation: pick 0.22s ease;
     }
 
     .field.slot-picked {
@@ -596,7 +590,7 @@
       color: var(--ink);
       border-radius: 20px;
       padding: 1.35rem;
-      animation: pop 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      animation: pop 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
     }
 
     .modal-bib {
@@ -652,42 +646,14 @@
     [data-step="1"] > .btn-sun,
     .pix-row .btn-sun { width: 100%; }
 
-    [data-step]:not(.hidden) { animation: rise 0.4s ease; }
-
     #site-header {
       transition: background-color 0.3s ease, border-color 0.3s ease;
       padding-top: env(safe-area-inset-top);
     }
 
-    .hero-copy { animation: rise 0.85s 0.12s ease both; }
-
-    .stats b.bump { animation: pick 0.28s ease; }
-
-    .sheet .wrap > *.in { animation: rise 0.7s ease both; }
-
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: none; }
-    }
-
     @keyframes pop {
       from { opacity: 0; transform: translateY(14px) scale(0.97); }
       to { opacity: 1; transform: none; }
-    }
-
-    @keyframes pick {
-      from { transform: scale(0.96); }
-      to { transform: none; }
-    }
-
-    @keyframes bib-in {
-      from { opacity: 0; transform: translateY(8px) scale(0.98); }
-      to { opacity: 1; transform: none; }
-    }
-
-    @keyframes guga-glow {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(241, 90, 36, 0); }
-      50% { box-shadow: 0 0 0 3px rgba(241, 90, 36, 0.28); }
     }
 
     @media (min-width: 520px) {
@@ -811,6 +777,10 @@
       inset: 0;
     }
 
+    .hero-media { background: #12263F; }
+
+    .hero-media img { display: none; }
+
     .hero-media img,
     .hero-media video {
       width: 100%;
@@ -872,15 +842,8 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .hero-media video { display: none; }
-      .hero-copy,
-      .sheet .wrap > *,
-      .sheet .wrap > *.in,
-      [data-step]:not(.hidden),
-      .modal-panel,
-      .bib-in,
-      .bib-guga {
-        animation: none;
-      }
+      .hero-media img { display: block; }
+      .modal-panel { animation: none; }
     }
   </style>
 </head>
@@ -906,8 +869,8 @@
   <main id="conteudo">
     <section class="hero" id="topo">
       <div class="hero-media">
-        <img src="assets/images/hero-poster.jpg" alt="Guga correndo na orla ao amanhecer" width="1600" height="892" fetchpriority="high">
-        <video autoplay muted loop playsinline poster="assets/images/hero-poster.jpg" aria-hidden="true">
+        <img class="hero-still" src="assets/images/hero-poster.jpg" alt="Guga correndo na orla ao amanhecer" width="1600" height="892">
+        <video autoplay muted loop playsinline aria-hidden="true">
           <source src="assets/video/hero.mp4" type="video/mp4">
         </video>
       </div>
@@ -1221,9 +1184,6 @@
       const next = String(value);
       if (el.textContent === next) return;
       el.textContent = next;
-      el.classList.remove('bump');
-      void el.offsetWidth;
-      el.classList.add('bump');
     }
 
     // Render Pelotão Grid and Select
@@ -1279,14 +1239,8 @@
           select.appendChild(option);
         }
 
-        if (!grid.dataset.seen) {
-          card.classList.add('bib-in');
-          card.style.animationDelay = Math.min((i - 1) * 16, 400) + 'ms';
-          card.addEventListener('animationend', () => card.classList.remove('bib-in'), { once: true });
-        }
         grid.appendChild(card);
       }
-      grid.dataset.seen = '1';
 
       if (selectedBefore && select.querySelector('option[value="' + selectedBefore + '"]')) {
         select.value = selectedBefore;
@@ -1718,16 +1672,6 @@
       const heroVideo = document.querySelector('.hero-media video');
       if (heroVideo && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
         heroVideo.play().catch(() => {});
-      }
-      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            entry.target.classList.add('in');
-            io.unobserve(entry.target);
-          });
-        }, { threshold: 0.2 });
-        document.querySelectorAll('.sheet .wrap > *').forEach((el) => io.observe(el));
       }
     });
   </script>
