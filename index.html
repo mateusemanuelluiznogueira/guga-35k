@@ -4,6 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#F6F3EC">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('guga-theme');
+        var theme = saved === 'dark' || saved === 'light'
+          ? saved
+          : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', theme === 'dark' ? '#141028' : '#F6F3EC');
+      } catch (e) {}
+    })();
+  </script>
   <!-- Cache Busting Headers -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
@@ -96,7 +109,37 @@
       --line: #E4DDD2;
       --muted: #3A4A58;
       --sun-ink: #9A3412;
+      --card: #fff;
+      --pick: #fff4ee;
+      --pick-ink: #9A3412;
+      --ghost-line: #cfc6b8;
+      --chip-hover: #f0b8a4;
+      --error: #9f1239;
+      --on-sea: #F6F3EC;
+      --header-solid: rgba(246, 243, 236, 0.96);
     }
+
+    html[data-theme="dark"] {
+      --paper: #141028;
+      --ink: #F6F1E7;
+      --sun: #E8A317;
+      --sea: #8EB4FF;
+      --line: #3E3568;
+      --muted: #D2CAE2;
+      --sun-ink: #FFD27A;
+      --card: #241C48;
+      --pick: #34285A;
+      --pick-ink: #FFD27A;
+      --ghost-line: #5C5188;
+      --chip-hover: #E8A317;
+      --error: #FFC2CE;
+      --on-sea: #141028;
+      --header-solid: rgba(20, 16, 40, 0.96);
+      color-scheme: dark;
+    }
+
+    html[data-theme="dark"] .price { color: var(--sun); }
+    html[data-theme="dark"] #modal-sucesso { background: rgba(12, 8, 28, 0.72); }
 
     html {
       color-scheme: light;
@@ -131,7 +174,7 @@
       z-index: 70;
       transform: translateY(-150%);
       background: var(--ink);
-      color: #fff;
+      color: var(--paper);
       font-weight: 700;
       border-radius: 999px;
       padding: 0.65rem 0.9rem;
@@ -213,7 +256,7 @@
     }
 
     .chip {
-      background: #fff;
+      background: var(--card);
       border: 1px solid var(--line);
       border-radius: 12px;
       padding: 0.85rem 0.4rem;
@@ -225,7 +268,7 @@
 
     .chip:hover {
       transform: translateY(-3px);
-      border-color: #f0b8a4;
+      border-color: var(--chip-hover);
     }
 
     .quiet {
@@ -272,7 +315,7 @@
     .field {
       width: 100%;
       min-height: 48px;
-      background: #fff;
+      background: var(--card);
       border: 1px solid var(--line);
       border-radius: 12px;
       padding: 0.75rem 0.9rem;
@@ -327,7 +370,7 @@
       align-items: center;
       justify-content: center;
       background: transparent;
-      border: 1px solid #cfc6b8;
+      border: 1px solid var(--ghost-line);
       color: var(--ink);
       font-weight: 700;
       border-radius: 999px;
@@ -353,7 +396,7 @@
 
     .btn-sun.is-copied {
       background: var(--sea);
-      color: #fff;
+      color: var(--on-sea);
     }
 
     .section-head {
@@ -387,7 +430,7 @@
 
     .bib {
       min-height: 112px;
-      background: #fff;
+      background: var(--card);
       border: 1px solid var(--line);
       border-radius: 14px;
       padding: 0.8rem 0.85rem;
@@ -408,7 +451,7 @@
     .bib-free:hover {
       transform: translateY(-3px);
       border-color: var(--sun);
-      background: #fff7f3;
+      background: var(--pick);
     }
 
     .bib-top,
@@ -453,11 +496,11 @@
     }
 
     .note { color: var(--muted); margin-bottom: 0.8rem; }
-    .note.is-error { color: #9f1239; }
-    [aria-invalid="true"] { border-color: #9f1239; }
+    .note.is-error { color: var(--error); }
+    [aria-invalid="true"] { border-color: var(--error); }
 
     .form-card {
-      background: #fff;
+      background: var(--card);
       border: 1px solid var(--line);
       border-radius: 20px;
       padding: 1.25rem;
@@ -490,7 +533,7 @@
     }
 
     .dist-btn {
-      background: #fff;
+      background: var(--card);
       border: 1px solid var(--line);
       border-radius: 12px;
       font-weight: 700;
@@ -502,8 +545,8 @@
 
     .dist-btn.is-on {
       border-color: var(--sun);
-      background: #fff4ee;
-      color: #9a3412;
+      background: var(--pick);
+      color: var(--pick-ink);
     }
 
     .field.slot-picked {
@@ -518,7 +561,7 @@
       padding: 0.75rem 0.9rem;
       border: 1px solid var(--line);
       border-radius: 12px;
-      background: #fff;
+      background: var(--card);
       cursor: pointer;
       transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
     }
@@ -527,7 +570,7 @@
 
     .choice:has(input:checked) {
       border-color: var(--sun);
-      background: #fff7f3;
+      background: var(--pick);
     }
 
     .stack { display: grid; gap: 0.9rem; }
@@ -538,7 +581,7 @@
     }
 
     .note-card {
-      background: #fff;
+      background: var(--card);
       border: 1px solid var(--line);
       border-radius: 16px;
       padding: 1rem 1.05rem;
@@ -572,6 +615,12 @@
       height: auto;
       margin: 0 auto 0.8rem;
     }
+
+    .footer-logo-dark { display: none; }
+    .site-footer .footer-logo-dark { width: min(100%, 320px); }
+
+    html[data-theme="dark"] .footer-logo-light { display: none; }
+    html[data-theme="dark"] .footer-logo-dark { display: block; }
 
     .site-footer p {
       color: var(--muted);
@@ -697,11 +746,16 @@
     }
 
     .brand-logo {
-      width: min(42vw, 158px);
+      width: min(28vw, 132px);
       height: auto;
       display: block;
       filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
     }
+
+    .brand-logo-dark { display: none; }
+
+    html[data-theme="dark"] .brand-logo-light { display: none; }
+    html[data-theme="dark"] .brand-logo-dark { display: block; }
 
     .site-bar {
       width: min(72rem, 100%);
@@ -732,17 +786,37 @@
 
     #header-countdown { font-weight: 600; }
 
+    .header-actions {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex: none;
+    }
+
+    .theme-toggle {
+      min-height: 44px;
+      padding: 0.4rem 0.7rem;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--paper);
+      font-weight: 700;
+      font-size: 0.78rem;
+      white-space: nowrap;
+    }
+
+    .theme-short { display: none; }
+
     .header-cta {
       flex: none;
-      margin-left: auto;
       min-height: 44px;
-      padding: 0.55rem 0.8rem;
-      font-size: 0.82rem;
+      padding: 0.55rem 0.7rem;
+      font-size: 0.78rem;
       white-space: nowrap;
     }
 
     #site-header.is-solid {
-      background: rgba(246, 243, 236, 0.96);
+      background: var(--header-solid);
       border-bottom-color: var(--line);
     }
 
@@ -754,13 +828,20 @@
       background: transparent;
     }
 
+    @media (max-width: 479px) {
+      .theme-long { display: none; }
+      .theme-short { display: inline; }
+    }
+
     @media (min-width: 640px) {
-      .brand-logo { width: 220px; }
+      .brand-logo { width: 200px; }
       .site-bar {
         display: grid;
         grid-template-columns: auto minmax(0, 1fr) auto;
       }
-      .header-cta { margin-left: 0; min-height: 44px; font-size: 0.95rem; padding: 0.6rem 1rem; }
+      .header-actions { margin-left: 0; }
+      .header-cta { min-height: 44px; font-size: 0.95rem; padding: 0.6rem 1rem; }
+      .theme-toggle { font-size: 0.85rem; padding: 0.45rem 0.8rem; }
       .header-count { display: flex; }
     }
 
@@ -854,7 +935,8 @@
   <header id="site-header" class="fixed inset-x-0 top-0 z-50 border-b border-transparent">
     <div class="site-bar">
       <a href="#topo" class="brand-lockup">
-        <img src="assets/images/logo-header.png" alt="GUGA 35K" class="brand-logo" width="981" height="144" decoding="async" fetchpriority="high">
+        <img src="assets/images/logo-header.png" alt="GUGA 35K" class="brand-logo brand-logo-light" width="981" height="144" decoding="async" fetchpriority="high">
+        <img src="assets/images/logo-header-white.png" alt="GUGA 35K" class="brand-logo brand-logo-dark" width="945" height="144" decoding="async">
       </a>
 
       <div class="header-count" role="timer" aria-label="Tempo até a largada">
@@ -862,7 +944,13 @@
         <span id="header-countdown">Carregando…</span>
       </div>
 
-      <a href="#inscricao" class="header-cta">Escolher número</a>
+      <div class="header-actions">
+        <button type="button" id="theme-toggle" class="theme-toggle" aria-pressed="false">
+          <span class="theme-long">Modo escuro</span>
+          <span class="theme-short">Escuro</span>
+        </button>
+        <a href="#inscricao" class="header-cta">Escolher número</a>
+      </div>
     </div>
   </header>
 
@@ -1065,7 +1153,8 @@
   </main>
 
   <footer class="site-footer" id="site-footer">
-    <img src="assets/images/logo-stacked.png" alt="GUGA 35K, corrida de aniversário em Matinhos" width="866" height="722" loading="lazy" decoding="async">
+    <img class="footer-logo-light" src="assets/images/logo-stacked.png" alt="GUGA 35K, corrida de aniversário em Matinhos" width="866" height="722" loading="lazy" decoding="async">
+    <img class="footer-logo-dark" src="assets/images/logo-white.png" alt="GUGA 35K, corrida de aniversário em Matinhos" width="953" height="168" loading="lazy" decoding="async">
     <p>20 de novembro. Matinhos, PR.</p>
     <p>Corrida de aniversário do Luiz “Guga” Nogueira.</p>
   </footer>
@@ -1661,7 +1750,37 @@
     }
 
     // Initialization
+    function applyTheme(theme, persist) {
+      document.documentElement.setAttribute('data-theme', theme);
+      const dark = theme === 'dark';
+      const themeToggle = document.getElementById('theme-toggle');
+      const themeMeta = document.querySelector('meta[name="theme-color"]');
+      if (themeToggle) {
+        themeToggle.setAttribute('aria-pressed', dark ? 'true' : 'false');
+        themeToggle.setAttribute('aria-label', dark ? 'Mudar para modo claro' : 'Mudar para modo escuro');
+        const longLabel = themeToggle.querySelector('.theme-long');
+        const shortLabel = themeToggle.querySelector('.theme-short');
+        if (longLabel) longLabel.textContent = dark ? 'Modo claro' : 'Modo escuro';
+        if (shortLabel) shortLabel.textContent = dark ? 'Claro' : 'Escuro';
+      }
+      if (themeMeta) themeMeta.setAttribute('content', dark ? '#141028' : '#F6F3EC');
+      if (persist) localStorage.setItem('guga-theme', theme);
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
+      applyTheme(document.documentElement.getAttribute('data-theme') || 'light', false);
+      const themeToggle = document.getElementById('theme-toggle');
+      if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+          const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          applyTheme(next, true);
+        });
+      }
+      if (!localStorage.getItem('guga-theme')) {
+        matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
+          if (!localStorage.getItem('guga-theme')) applyTheme(event.matches ? 'dark' : 'light', false);
+        });
+      }
       initCountdown();
       loadRunners();
       watchRunners();
