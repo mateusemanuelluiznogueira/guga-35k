@@ -1,13 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <defs>
-    <linearGradient id="bronzeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#F59E0B"/>
-      <stop offset="50%" stop-color="#D97706"/>
-      <stop offset="100%" stop-color="#B45309"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="16" fill="#090A0F"/>
-  <rect x="2" y="2" width="60" height="60" rx="14" fill="none" stroke="url(#bronzeGrad)" stroke-width="2"/>
-  <text x="32" y="38" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="20" fill="url(#bronzeGrad)" letter-spacing="-0.5">35K</text>
-  <text x="32" y="50" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="8" fill="#94A3B8" letter-spacing="1.5">GUGA</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 174 174" fill="none">
+  <title>GUGA 35K</title>
+  <path fill="#FD660D" d="M21.6 69.9A58 58 0 0 1 132.8 56.3Z"/>
+  <path fill="#FD660D" d="M-10 90L31.5 75.5L123.4 55.3L154 54L125.6 65.6L33.8 85.8Z"/>
+  <path fill="#1B4F8A" d="M-66 136L-28.5 120.9L109.8 86.4L150 82L112.5 97.1L-25.8 131.6Z"/>
+  <path fill="#12315C" d="M-40 154L-10.3 139.6L97.6 109.8L134 106L100.8 121.4L-7.1 151.1Z"/>
 </svg>
