@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F6F3EC">
   <!-- Cache Busting Headers -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   
   <title>Corrida de Aniversário GUGA 35K | Matinhos - PR</title>
-  <meta name="description" content="35 Anos • 35 Quilômetros • 1 Desafio entre amigos. Comemore o aniversário do Guga correndo na orla de Matinhos - PR no dia 20/11!">
+  <meta name="description" content="20 de novembro, 7h30, orla de Matinhos. 35 anos, 35 km, e cada um no seu ritmo.">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg?v=2">
@@ -85,153 +86,713 @@
   </script>
 
   <style>
+    :root {
+      --paper: #F6F3EC;
+      --ink: #12263F;
+      --sun: #F15A24;
+      --sea: #1B4F8A;
+      --line: #E4DDD2;
+      --muted: #3A4A58;
+      --sun-ink: #9A3412;
+    }
+
+    html {
+      color-scheme: light;
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(4.75rem + env(safe-area-inset-top));
+    }
+
     body {
-      background-color: #090A0F;
-      color: #E2E8F0;
+      background-color: var(--paper);
+      color: var(--ink);
       font-family: 'Barlow', sans-serif;
+      font-size: 1.0625rem;
+      line-height: 1.5;
       overflow-x: hidden;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .glass-card {
-      background: rgba(15, 16, 23, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid var(--ink);
+      outline-offset: 3px;
     }
 
-    .glass-card-hover:hover {
-      border-color: rgba(217, 119, 6, 0.3);
-      transform: translateY(-2px);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    .skip {
+      position: absolute;
+      left: 1rem;
+      top: 0.5rem;
+      z-index: 70;
+      transform: translateY(-150%);
+      background: var(--ink);
+      color: #fff;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 0.65rem 0.9rem;
     }
 
-    .bib-number {
-      background: rgba(217, 119, 6, 0.1);
-      border: 1px solid rgba(217, 119, 6, 0.2);
-      color: #D97706;
-      font-family: 'IBM Plex Mono', monospace;
+    .skip:focus { transform: none; }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    fieldset {
+      border: 0;
+      margin: 0.9rem 0 0;
+      padding: 0;
+      min-inline-size: 0;
+    }
+
+    legend.ask { padding: 0; }
+
+    .wrap {
+      width: min(72rem, calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    .sheet {
+      padding: 3.5rem 0;
+    }
+
+    .sheet + .sheet {
+      border-top: 1px solid var(--line);
+    }
+
+    .section-title,
+    .form-card h3,
+    .hero h1 {
+      text-wrap: balance;
+    }
+
+    .section-title {
+      font-size: clamp(1.85rem, 4vw, 2.7rem);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+    }
+
+    .lede {
+      margin-top: 0.8rem;
+      max-width: 38rem;
+      color: var(--muted);
+      font-size: 1.125rem;
+      line-height: 1.55;
+      text-wrap: pretty;
+    }
+
+    .sheet,
+    .hero,
+    h2,
+    h3 { scroll-margin-top: calc(4.75rem + env(safe-area-inset-top)); }
+
+    .split {
+      display: grid;
+      gap: 2.25rem;
+    }
+
+    .chip-row,
+    .dist-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem;
+    }
+
+    .chip {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.85rem 0.4rem;
+      text-align: center;
+      font-weight: 800;
+      font-size: 1.05rem;
+      transition: transform 0.18s ease, border-color 0.18s ease;
+    }
+
+    .chip:hover {
+      transform: translateY(-3px);
+      border-color: #f0b8a4;
+    }
+
+    .quiet {
+      margin-top: 1.1rem;
+      color: var(--ink);
+      font-size: 0.95rem;
+    }
+
+    .medal-layout {
+      display: grid;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .medal-layout img {
+      width: min(100%, 420px);
+      height: auto;
+      justify-self: center;
+      display: block;
+    }
+
+    .price {
+      margin: 1rem 0 0.35rem;
+      font-size: clamp(2.4rem, 6vw, 3.4rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .price span {
+      font-size: 1rem;
       font-weight: 600;
-      letter-spacing: -0.5px;
+      color: var(--muted);
     }
 
-    .bib-number-guga {
-      background: rgba(217, 119, 6, 0.2);
-      border: 1px solid rgba(217, 119, 6, 0.3);
-      color: #D97706;
+    .pix-row,
+    .step-actions,
+    .choice-grid {
+      display: grid;
+      gap: 0.5rem;
     }
 
-    .distance-tag {
-      background: rgba(30, 58, 138, 0.2);
-      border: 1px solid rgba(30, 58, 138, 0.3);
-      color: #3B82F6;
-      font-family: 'IBM Plex Mono', monospace;
-      font-weight: 500;
+    .pix-row input,
+    .field {
+      width: 100%;
+      min-height: 48px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.75rem 0.9rem;
+      color: var(--ink);
+      font-size: 1rem;
     }
 
-    .bg-grid-pattern {
-      background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      background-size: 24px 24px;
+    .field:focus-visible,
+    .pix-row input:focus-visible {
+      outline: 3px solid var(--ink);
+      outline-offset: 2px;
+      border-color: var(--ink);
     }
 
-    .lockup {
-      font-family: "Barlow Condensed", sans-serif;
-      font-style: italic;
+    .pix-row button,
+    .btn-sun,
+    .btn-ghost,
+    .dist-btn,
+    .choice {
+      min-height: 48px;
+    }
+
+    .btn-sun,
+    .header-cta,
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--sun);
+      color: #1A1208;
+      font-weight: 800;
+      border-radius: 999px;
+      padding: 0.85rem 1.15rem;
+      transition: filter 0.15s ease, transform 0.15s ease;
+    }
+
+    .btn-sun:hover,
+    .header-cta:hover,
+    .hero-cta:hover {
+      filter: brightness(1.06);
+      transform: translateY(-2px);
+    }
+
+    .btn-sun:active,
+    .header-cta:active,
+    .hero-cta:active { transform: scale(0.98); }
+
+    .btn-sun:disabled { opacity: 0.6; }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: 1px solid #cfc6b8;
+      color: var(--ink);
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 0.85rem 1.15rem;
+    }
+
+    .btn-ghost:active { transform: scale(0.98); }
+
+    .fine {
+      margin-top: 0.7rem;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.5;
+      text-wrap: pretty;
+    }
+
+    .copied {
+      margin-top: 0.45rem;
+      color: var(--sea);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .btn-sun.is-copied {
+      background: var(--sea);
+      color: #fff;
+    }
+
+    .section-head {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .stats {
+      display: flex;
+      gap: 1.25rem;
+    }
+
+    .stats b {
+      display: block;
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    .stats span {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .pelotao-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.6rem;
+    }
+
+    .bib {
+      min-height: 112px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 0.8rem 0.85rem;
+      text-align: left;
+    }
+
+    .bib-guga:not(.bib-in) {
+      border-color: var(--sun);
+      animation: guga-glow 2.8s ease-in-out infinite;
+    }
+
+    .bib-in { animation: bib-in 0.45s ease both; }
+
+    .bib-free {
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
+      border-style: dashed;
+      width: 100%;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .bib-free:hover {
+      transform: translateY(-3px);
+      border-color: var(--sun);
+      background: #fff7f3;
+    }
+
+    .bib-top,
+    .bib-free {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.4rem;
+    }
+
+    .bib-num,
+    .modal-bib,
+    .stats b,
+    #header-countdown,
+    .price {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .bib-num {
+      font-family: "IBM Plex Mono", monospace;
+      font-weight: 700;
+      font-size: 1.35rem;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .bib-km,
+    .bib-action,
+    .bib-meta {
+      color: var(--muted);
+      font-size: 0.9375rem;
+    }
+
+    .bib-name {
+      margin-top: 0.55rem;
+      font-weight: 700;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      overflow-wrap: anywhere;
+    }
+
+    .note { color: var(--muted); margin-bottom: 0.8rem; }
+    .note.is-error { color: #9f1239; }
+    [aria-invalid="true"] { border-color: #9f1239; }
+
+    .form-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 1.25rem;
+    }
+
+    .form-card h3 {
+      font-size: 1.35rem;
       font-weight: 800;
       letter-spacing: -0.03em;
-      line-height: 0.85;
-      font-size: clamp(1.35rem, 4.6vw, 1.7rem);
-      color: #fff;
-      white-space: nowrap;
-      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
     }
 
-    .lockup-k { color: #F15A24; }
+    .form-card h3:focus {
+      outline: 3px solid var(--ink);
+      outline-offset: 4px;
+    }
+
+    label,
+    .ask {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+    }
+
+    .hint {
+      margin: -0.15rem 0 0.45rem;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.45;
+      text-wrap: pretty;
+    }
+
+    .dist-btn {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      font-weight: 700;
+      color: var(--ink);
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+    }
+
+    .dist-btn:hover { transform: translateY(-2px); }
+
+    .dist-btn.is-on {
+      border-color: var(--sun);
+      background: #fff4ee;
+      color: #9a3412;
+      animation: pick 0.22s ease;
+    }
+
+    .field.slot-picked {
+      outline: 2px solid var(--sun);
+      outline-offset: 1px;
+    }
+
+    .choice {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.75rem 0.9rem;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .choice:hover { transform: translateY(-2px); }
+
+    .choice:has(input:checked) {
+      border-color: var(--sun);
+      background: #fff7f3;
+    }
+
+    .stack { display: grid; gap: 0.9rem; }
+
+    .mural {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .note-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1rem 1.05rem;
+      transition: transform 0.18s ease;
+    }
+
+    .note-card:hover { transform: translateY(-3px); }
+
+    .note-card p { line-height: 1.5; overflow-wrap: anywhere; }
+
+    .note-by {
+      margin-top: 0.7rem;
+      color: var(--sea);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .empty-note {
+      color: var(--muted);
+      padding: 1rem 0 0.25rem;
+    }
+
+    .site-footer {
+      border-top: 1px solid var(--line);
+      padding: 2.5rem 1rem 3rem;
+      text-align: center;
+    }
+
+    .site-footer img {
+      width: 168px;
+      height: auto;
+      margin: 0 auto 0.8rem;
+    }
+
+    .site-footer p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    #modal-sucesso {
+      background: rgba(18, 38, 63, 0.5);
+      z-index: 80;
+      overscroll-behavior: contain;
+    }
+
+    .modal-panel {
+      width: min(28rem, 100%);
+      background: var(--paper);
+      color: var(--ink);
+      border-radius: 20px;
+      padding: 1.35rem;
+      animation: pop 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .modal-bib {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: -0.05em;
+      line-height: 0.9;
+    }
+
+    .summary {
+      display: grid;
+      gap: 0.4rem;
+      margin-top: 1rem;
+      padding-top: 0.9rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.95rem;
+    }
+
+    .summary div {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .summary span:first-child { color: var(--muted); }
+    .summary span:last-child { font-weight: 700; text-align: right; overflow-wrap: anywhere; }
+
+    .btn-zap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 52px;
+      margin-top: 1rem;
+      background: #075E54;
+      color: #fff;
+      font-weight: 800;
+      border-radius: 999px;
+    }
+
+    .btn-zap:active { transform: scale(0.98); }
+
+    .btn-text {
+      display: block;
+      width: 100%;
+      margin-top: 0.35rem;
+      min-height: 44px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    [data-step="1"] > .btn-sun,
+    .pix-row .btn-sun { width: 100%; }
+
+    [data-step]:not(.hidden) { animation: rise 0.4s ease; }
+
+    #site-header {
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+      padding-top: env(safe-area-inset-top);
+    }
+
+    .hero-copy { animation: rise 0.85s 0.12s ease both; }
+
+    .stats b.bump { animation: pick 0.28s ease; }
+
+    .sheet .wrap > *.in { animation: rise 0.7s ease both; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    @keyframes pop {
+      from { opacity: 0; transform: translateY(14px) scale(0.97); }
+      to { opacity: 1; transform: none; }
+    }
+
+    @keyframes pick {
+      from { transform: scale(0.96); }
+      to { transform: none; }
+    }
+
+    @keyframes bib-in {
+      from { opacity: 0; transform: translateY(8px) scale(0.98); }
+      to { opacity: 1; transform: none; }
+    }
+
+    @keyframes guga-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(241, 90, 36, 0); }
+      50% { box-shadow: 0 0 0 3px rgba(241, 90, 36, 0.28); }
+    }
+
+    @media (min-width: 520px) {
+      .pix-row { grid-template-columns: minmax(0, 1fr) auto; }
+      .pix-row .btn-sun { width: auto; }
+      .step-actions,
+      .choice-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (min-width: 700px) {
+      .sheet { padding: 5rem 0; }
+      .pelotao-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .dist-grid,
+      .chip-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .mural { grid-template-columns: 1fr 1fr; }
+      .section-head {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+      }
+    }
+
+    @media (min-width: 800px) {
+      .split,
+      .medal-layout { grid-template-columns: 1.15fr 0.85fr; align-items: start; }
+      .medal-layout { grid-template-columns: 0.8fr 1.2fr; align-items: center; }
+    }
+
+    @media (min-width: 1000px) {
+      .pelotao-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+      .dist-grid,
+      .chip-row { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+    }
 
     .brand-lockup {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      flex: none;
-      min-width: max-content;
+      min-width: 0;
+      min-height: 44px;
       text-decoration: none;
     }
 
     .brand-logo {
-      height: 42px;
-      width: auto;
+      width: min(42vw, 158px);
+      height: auto;
       display: block;
       filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
-    }
-
-    @media (min-width: 640px) {
-      .brand-logo { height: 48px; }
     }
 
     .site-bar {
       width: min(72rem, 100%);
       margin: 0 auto;
-      padding: 0.7rem 1rem;
+      padding: 0.65rem 1rem;
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.6rem;
     }
 
     .header-count {
       display: none;
       align-items: center;
       justify-content: center;
+      justify-self: center;
+      width: max-content;
+      max-width: 100%;
       gap: 0.35rem;
       min-width: 0;
-      overflow: hidden;
       font-family: "IBM Plex Mono", monospace;
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      color: rgba(255, 255, 255, 0.48);
+      font-size: 0.875rem;
+      color: #fff;
       white-space: nowrap;
+      background: rgba(18, 38, 63, 0.82);
+      border-radius: 999px;
+      padding: 0.35rem 0.7rem;
     }
 
-    #header-countdown {
-      color: rgba(255, 255, 255, 0.72);
-      font-weight: 600;
-    }
+    #header-countdown { font-weight: 600; }
 
     .header-cta {
-      display: inline-flex;
-      align-items: center;
       flex: none;
       margin-left: auto;
-      background: #F15A24;
-      color: #1A1208;
-      font-weight: 800;
-      font-size: 0.75rem;
-      line-height: 1;
-      padding: 0.5rem 0.85rem;
-      border-radius: 0.75rem;
+      min-height: 44px;
+      padding: 0.55rem 0.8rem;
+      font-size: 0.82rem;
       white-space: nowrap;
-      box-shadow: 0 1px 2px rgba(241, 90, 36, 0.22);
-      transition: filter 0.15s ease, transform 0.15s ease;
     }
 
-    .header-cta:hover { filter: brightness(1.06); }
-    .header-cta:active { transform: scale(0.98); }
-
-    @media (max-width: 639px) {
-      .site-bar { flex-wrap: wrap; }
+    #site-header.is-solid {
+      background: rgba(246, 243, 236, 0.96);
+      border-bottom-color: var(--line);
     }
 
-    @media (max-width: 380px) {
-      .site-bar { padding-inline: 0.75rem; gap: 0.45rem; }
-      .header-cta { font-size: 0.7rem; padding: 0.45rem 0.6rem; }
+    #site-header.is-solid .brand-logo { filter: none; }
+
+    #site-header.is-solid .header-count,
+    #site-header.is-solid #header-countdown {
+      color: var(--ink);
+      background: transparent;
     }
 
     @media (min-width: 640px) {
+      .brand-logo { width: 220px; }
       .site-bar {
         display: grid;
         grid-template-columns: auto minmax(0, 1fr) auto;
       }
-      .header-cta { margin-left: 0; font-size: 0.875rem; padding: 0.5rem 1rem; }
+      .header-cta { margin-left: 0; min-height: 44px; font-size: 0.95rem; padding: 0.6rem 1rem; }
       .header-count { display: flex; }
     }
 
@@ -272,538 +833,320 @@
       z-index: 1;
       width: min(72rem, calc(100% - 2rem));
       margin: 0 auto 8vh;
+      padding-top: 3.5rem;
     }
 
     .hero-meta {
       font-family: "IBM Plex Mono", monospace;
-      font-size: 0.75rem;
-      letter-spacing: 0.16em;
-      color: #ffedd5;
+      font-size: 0.875rem;
+      letter-spacing: 0.08em;
+      color: #fff;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
       margin-bottom: 0.8rem;
     }
 
     .hero h1 {
-      font-size: clamp(2.5rem, 5.6vw, 4.6rem);
+      font-size: clamp(2rem, 6vw, 4.4rem);
       font-weight: 800;
       letter-spacing: -0.04em;
-      line-height: 0.94;
+      line-height: 0.96;
       color: #fff;
       text-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
     }
 
-    .hero-cta {
-      display: inline-flex;
-      margin-top: 1.4rem;
-      background: #F15A24;
-      color: #1A1208;
-      font-weight: 800;
-      padding: 0.9rem 1.35rem;
+    .hero-cta { margin-top: 1.25rem; min-height: 48px; }
+
+    .hero-pause {
+      position: absolute;
+      z-index: 2;
+      right: max(1rem, env(safe-area-inset-right));
+      bottom: max(1rem, env(safe-area-inset-bottom));
+      min-height: 44px;
+      padding: 0.45rem 0.85rem;
       border-radius: 999px;
-      box-shadow: 0 10px 30px rgba(241, 90, 36, 0.28);
+      background: rgba(18, 38, 63, 0.82);
+      color: #fff;
+      font-weight: 700;
     }
 
-    .hero-cta:hover { filter: brightness(1.06); }
-    .hero-cta:active { transform: scale(0.98); }
+    @media (hover: none) {
+      .chip:hover,
+      .bib-free:hover,
+      .dist-btn:hover,
+      .choice:hover,
+      .note-card:hover,
+      .btn-sun:hover,
+      .header-cta:hover,
+      .hero-cta:hover { transform: none; }
+    }
 
     @media (prefers-reduced-motion: reduce) {
-      .hero-media video { display: none; }
+      html { scroll-behavior: auto; }
+      .hero-media video,
+      .hero-pause { display: none; }
+      .hero-copy,
+      .sheet .wrap > *,
+      .sheet .wrap > *.in,
+      [data-step]:not(.hidden),
+      .modal-panel,
+      .bib-in,
+      .bib-guga {
+        animation: none;
+      }
     }
   </style>
 </head>
-<body class="bg-grid-pattern min-h-screen">
+<body class="min-h-screen">
+  <a class="skip" href="#conteudo">Ir para o conteúdo</a>
 
   <!-- Header -->
   <header id="site-header" class="fixed inset-x-0 top-0 z-50 border-b border-transparent">
     <div class="site-bar">
       <a href="#topo" class="brand-lockup">
-        <img src="assets/images/logo-header.png" alt="GUGA 35K" class="brand-logo" decoding="async">
+        <img src="assets/images/logo-header.png" alt="GUGA 35K" class="brand-logo" width="981" height="144" decoding="async" fetchpriority="high">
       </a>
 
-      <div class="header-count">
-        <span>Largada em:</span>
-        <span id="header-countdown">Carregando...</span>
+      <div class="header-count" role="timer" aria-label="Tempo até a largada">
+        <span>Largada em</span>
+        <span id="header-countdown">Carregando…</span>
       </div>
 
-      <a href="#inscricao" class="header-cta">Garantir Meu Número</a>
+      <a href="#inscricao" class="header-cta">Escolher número</a>
     </div>
   </header>
 
-  <main>
+  <main id="conteudo">
     <section class="hero" id="topo">
       <div class="hero-media">
-        <img src="assets/images/hero-poster.jpg" alt="Guga correndo na orla ao amanhecer">
-        <video autoplay muted loop playsinline poster="assets/images/hero-poster.jpg">
+        <img src="assets/images/hero-poster.jpg" alt="Guga correndo na orla ao amanhecer" width="1600" height="892" fetchpriority="high">
+        <video autoplay muted loop playsinline poster="assets/images/hero-poster.jpg" aria-hidden="true">
           <source src="assets/video/hero.mp4" type="video/mp4">
         </video>
       </div>
       <div class="hero-shade" aria-hidden="true"></div>
+      <button type="button" class="hero-pause" id="hero-pause" aria-pressed="false" onclick="toggleHeroVideo()">Pausar vídeo</button>
       <div class="hero-copy">
         <p class="hero-meta">20 NOV · 07:30 · MATINHOS</p>
         <h1>35 anos. 1 km por ano.<br>Você no seu ritmo.</h1>
-        <a href="#inscricao" class="hero-cta">Escolher meu número</a>
+        <a href="#inscricao" class="hero-cta">Escolher número</a>
       </div>
     </section>
 
-    <!-- The Challenge & Lunch -->
-    <section class="py-12 border-y border-white/5 bg-black/20 relative">
-      <div class="max-w-6xl mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-
-          <!-- Challenge Card -->
-          <div class="glass-card rounded-3xl p-6 sm:p-8 border-l-4 border-l-bronze flex flex-col justify-between">
-            <div>
-              <div class="w-12 h-12 rounded-2xl bg-bronze/10 text-bronze flex items-center justify-center text-2xl mb-4 border border-bronze/20">
-                🎯
-              </div>
-              <h2 class="text-2xl font-bold text-white mb-3">Como Funciona o Desafio?</h2>
-              <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-4">
-                O Guga vai encarar a prova completa de <strong class="text-bronze">35 km</strong>. Mas a corrida é para <strong class="text-white">todo mundo participar</strong>, seja qual for o seu ritmo!
-              </p>
-              <ul class="space-y-2.5 text-sm text-slate-300">
-                <li class="flex items-center gap-2">
-                  <span class="text-emerald-400 font-bold">✓</span>
-                  <span><strong>Escolha sua distância:</strong> 5km, 10km, 12km, 21km ou os 35km inteiros.</span>
-                </li>
-                <li class="flex items-center gap-2">
-                  <span class="text-emerald-400 font-bold">✓</span>
-                  <span><strong>Escolha seu número:</strong> Cada atleta pega um número de peito no pelotão.</span>
-                </li>
-                <li class="flex items-center gap-2">
-                  <span class="text-emerald-400 font-bold">✓</span>
-                  <span><strong>Vibe pura:</strong> Ritmo de celebração, amizade e parceria no litoral!</span>
-                </li>
-              </ul>
-            </div>
-            <div class="mt-6 pt-4 border-t border-white/5 text-xs text-slate-400">
-              📍 Concentração às 07:00 • Largada pontual às 07:30
-            </div>
+    <section class="sheet" id="como">
+      <div class="wrap split">
+        <div>
+          <h2 class="section-title">O desafio</h2>
+          <p class="lede">Para os 35 anos eu vou correr 35 km na orla, um quilômetro por ano. Você vem no seu ritmo.</p>
+          <div class="chip-row" style="margin-top:1.25rem">
+            <p class="chip">5 km</p>
+            <p class="chip">10 km</p>
+            <p class="chip">12 km</p>
+            <p class="chip">15 km</p>
+            <p class="chip">21 km</p>
+            <p class="chip">35 km</p>
           </div>
-
-          <!-- Lunch Card -->
-          <div class="glass-card rounded-3xl p-6 sm:p-8 border-l-4 border-l-midnight flex flex-col justify-between">
-            <div>
-              <div class="w-12 h-12 rounded-2xl bg-midnight/10 text-midnight flex items-center justify-center text-2xl mb-4 border border-midnight/20">
-                🍻
-              </div>
-              <h2 class="text-2xl font-bold text-white mb-3">Almoço de Recuperação</h2>
-              <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-4">
-                Depois de gastar as calorias no asfalto, teremos o tradicional <strong class="text-midnight">Almoço de Confraternização</strong> para repor as energias com muita resenha gelada.
-              </p>
-              <div class="bg-midnight/20 border border-midnight/20 rounded-2xl p-4 text-sm text-midnight/90">
-                <p class="font-medium">
-                  "Quem corre almoça, quem caminha almoça, e quem foi só pra apoiar também almoça! A festa é nossa."
-                </p>
-              </div>
-            </div>
-            <div class="mt-6 pt-4 border-t border-white/5 text-xs text-slate-400">
-              🎉 Confirme sua presença no formulário abaixo para organizarmos as mesas!
-            </div>
-          </div>
-
+          <p class="quiet">Concentração às 07:00. Largada às 07:30, na orla de Matinhos.</p>
+        </div>
+        <div>
+          <h2 class="section-title">O almoço</h2>
+          <p class="lede">Quando acabar, a gente almoça. Corre, caminha ou vai só pra apoiar: a mesa é a mesma.</p>
         </div>
       </div>
     </section>
 
-    <!-- Medal & Pix -->
-    <section id="medalha" class="py-16 md:py-24 relative overflow-hidden">
-      <div class="max-w-6xl mx-auto px-4 relative z-10">
-
-        <div class="text-center max-w-2xl mx-auto mb-12">
-          <span class="inline-block px-3 py-1 rounded-full bg-bronze/10 border border-bronze/20 text-bronze text-xs font-mono font-semibold uppercase mb-3">
-            Item Oficial de Colecionador
-          </span>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            A Medalha do Desafio <span class="text-bronze">35K</span>
-          </h2>
-          <p class="text-slate-400 text-sm sm:text-base mt-2">
-            Desenhada exclusivamente para a prova de Matinhos - PR. Eternize essa corrida histórica no seu quadro de medalhas!
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-
-          <!-- Medal Photo -->
-          <div class="lg:col-span-5 text-center">
-            <div class="relative inline-block max-w-sm mx-auto">
-              <div class="relative glass-card rounded-3xl p-3 border border-bronze/20 shadow-lg">
-                <img
-                  src="assets/images/guga_medal.jpg"
-                  alt="Medalha Oficial Corrida de Aniversário Guga 35K Matinhos PR"
-                  class="rounded-2xl w-full object-cover max-h-[460px] filter contrast-105 hover:scale-105 transition-transform duration-500"
-                >
-                <div class="p-3 text-center">
-                  <span class="text-xs font-mono text-slate-400 block">Gravação em Alto-Relevo Bronze</span>
-                  <span class="text-sm font-bold text-bronze">Matinhos - PR • 35K</span>
-                </div>
-              </div>
-            </div>
+    <section class="sheet" id="medalha">
+      <div class="wrap medal-layout">
+        <img src="assets/images/guga_medal.jpg" alt="Medalha da corrida Guga 35K em Matinhos" width="870" height="1024" loading="lazy" decoding="async">
+        <div>
+          <h2 class="section-title">A medalha</h2>
+          <p class="lede">Quem quiser leva a medalha da prova. São R$ 40, o custo da fundição e da fita. A corrida não cobra inscrição.</p>
+          <p class="price">R$ 40 <span>por medalha</span></p>
+          <p class="fine" style="margin-top:0">Pix de Luiz Augusto Nogueira</p>
+          <div class="pix-row" style="margin-top:0.7rem">
+            <input id="pix-key-input" type="text" inputmode="numeric" autocomplete="off" translate="no" value="080.702.289-62" readonly aria-label="Chave Pix">
+            <button type="button" id="copy-pix-btn" class="btn-sun" onclick="copyPixKey()">
+              <span id="copy-icon" aria-hidden="true"></span>
+              <span id="copy-text">Copiar Pix</span>
+            </button>
           </div>
-
-          <!-- Cost & Payment Info -->
-          <div class="lg:col-span-7 space-y-6">
-
-            <div class="glass-card rounded-3xl p-6 sm:p-8 border border-white/5 space-y-5">
-              <div class="flex flex-wrap items-center justify-between gap-4">
-                <div>
-                  <span class="text-xs text-slate-400 uppercase tracking-wider block font-mono">Custo de Fabricação</span>
-                  <div class="flex items-baseline gap-2">
-                    <span class="text-4xl sm:text-5xl font-black text-bronze">R$ 40<span class="text-xl">,00</span></span>
-                    <span class="text-xs text-slate-400">/ unidade</span>
-                  </div>
-                </div>
-                <span class="px-3.5 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-semibold">
-                  ✓ Preço de Custo Real
-                </span>
-              </div>
-
-              <p class="text-slate-300 text-sm leading-relaxed">
-                A corrida não tem taxa de inscrição lucrativa! O valor de <strong class="text-white">R$ 40,00</strong> é cobrado <em>estritamente para custear a fundição e a fita personalizada da medalha</em> para quem quiser guardar essa lembrança.
-              </p>
-
-              <!-- Pix Box -->
-              <div class="bg-black/50 border border-bronze/20 rounded-2xl p-5 space-y-3">
-                <div class="flex items-center justify-between">
-                  <span class="text-xs font-mono text-bronze font-bold uppercase tracking-wider flex items-center gap-1.5">
-                    Chave Pix (CPF)
-                  </span>
-                  <span class="text-xs text-slate-400">Favorecido: Luiz Augusto Nogueira</span>
-                </div>
-
-                <div class="flex items-center gap-2">
-                  <input
-                    type="text"
-                    id="pix-key-input"
-                    value="080.702.289-62"
-                    readonly
-                    class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 font-mono text-bronze font-bold text-base sm:text-lg select-all focus:outline-none"
-                  >
-                  <button
-                    onclick="copyPixKey()"
-                    id="copy-pix-btn"
-                    class="bg-bronze hover:bg-bronze-dark text-black font-bold px-5 py-3 rounded-xl transition-all active:scale-95 flex items-center gap-2 whitespace-nowrap text-sm shadow-sm"
-                  >
-                    <span id="copy-icon">📋</span>
-                    <span id="copy-text">Copiar Pix</span>
-                  </button>
-                </div>
-
-                <p id="copy-feedback" class="text-xs text-emerald-400 font-medium hidden">
-                  ✓ Chave Pix copiada para a área de transferência!
-                </p>
-              </div>
-
-              <div class="text-xs text-slate-400 flex items-center gap-2">
-                <span>💡</span>
-                <span>Após fazer o Pix, você pode anexar o comprovante na conversa do WhatsApp ao confirmar sua inscrição!</span>
-              </div>
-            </div>
-
-          </div>
-
+          <p id="copy-feedback" class="copied hidden" role="status">Chave copiada.</p>
+          <p class="fine">Depois de confirmar, manda o comprovante no WhatsApp.</p>
         </div>
-
       </div>
     </section>
 
-    <!-- Pelotão Grid -->
-    <section id="pelotao" class="py-16 bg-black/30 border-y border-white/5 relative">
-      <div class="max-w-6xl mx-auto px-4">
-
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+    <section class="sheet" id="pelotao">
+      <div class="wrap">
+        <div class="section-head">
           <div>
-            <span class="text-xs font-mono font-semibold text-navy uppercase tracking-wider block mb-1">
-              Lista Oficial de Largada
-            </span>
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              Grade do Pelotão <span class="text-bronze font-mono">(1 a 40)</span>
-            </h2>
-            <p class="text-slate-400 text-sm mt-1">
-              Escolha seu número de peito abaixo. Clique em qualquer vaga livre para se inscrever!
-            </p>
+            <h2 class="section-title">O pelotão</h2>
+            <p class="lede">Quarenta números. O 1 é o meu. O resto está aberto.</p>
           </div>
-
-          <!-- Pelotão Stats -->
-          <div class="flex items-center gap-3 text-xs font-mono">
-            <div class="glass-card px-3 py-2 rounded-xl border border-white/5">
-              <span class="text-slate-400 block">Confirmados:</span>
-              <span id="stat-confirmados" class="text-bronze font-bold text-sm">1</span>
-            </div>
-            <div class="glass-card px-3 py-2 rounded-xl border border-white/5">
-              <span class="text-slate-400 block">Vagas Livres:</span>
-              <span id="stat-livres" class="text-emerald-400 font-bold text-sm">39</span>
-            </div>
+          <div class="stats">
+            <p><b id="stat-confirmados">1</b><span>na lista</span></p>
+            <p><b id="stat-livres">39</b><span>livres</span></p>
           </div>
         </div>
-
-        <!-- Pelotão Grid -->
-        <p id="pelotao-status" class="text-sm text-slate-400 font-mono mb-4">Carregando a lista oficial...</p>
-        <div id="grid-pelotao" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
-          <!-- Rendered via JavaScript -->
-        </div>
-
+        <p id="pelotao-status" class="note" role="status">Carregando a lista…</p>
+        <div id="grid-pelotao" class="pelotao-grid"></div>
       </div>
     </section>
 
-    <!-- Registration Form -->
-    <section id="inscricao" class="py-16 md:py-24 relative overflow-hidden">
-      <div class="max-w-3xl mx-auto px-4 relative z-10">
+    <section class="sheet" id="inscricao">
+      <div class="wrap" style="max-width:44rem">
+        <h2 class="section-title">Escolher número</h2>
+        <p class="lede">Três passos. No fim abre o WhatsApp pra você confirmar comigo.</p>
 
-        <div class="text-center mb-10">
-          <span class="inline-block px-3 py-1 rounded-full bg-midnight/10 border border-midnight/20 text-midnight text-xs font-mono font-semibold uppercase mb-3">
-            Garantir Presença
-          </span>
-          <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
-            Confirme seu lugar no <span class="text-bronze">35K</span>
-          </h2>
-          <p class="text-slate-400 text-sm sm:text-base mt-2 max-w-md mx-auto">
-            São três passos. No fim, você manda a confirmação no WhatsApp do Guga.
-          </p>
-        </div>
+        <div class="form-card" style="margin-top:1.5rem">
+          <form id="form-inscricao" class="stack" novalidate onsubmit="handleInscricao(event)">
+            <p id="passo-label" style="font-weight:700;color:var(--sun-ink)">Passo 1 de 3</p>
+            <p id="passo-erro" class="note is-error" role="alert" style="min-height:1.25rem;margin:0"></p>
 
-        <!-- Form Card -->
-        <div class="glass-card rounded-3xl p-6 sm:p-10 border border-white/5 shadow-lg">
-          <form id="form-inscricao" class="space-y-6" onsubmit="handleInscricao(event)">
-            <p id="passo-label" class="text-sm text-bronze font-semibold">Passo 1 de 3</p>
-            <p id="passo-erro" class="text-sm text-red-400 min-h-5"></p>
-
-            <div data-step="1" class="space-y-4">
-              <h3 class="text-xl font-bold text-white">Como a gente te chama?</h3>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label for="runner-name" class="block text-sm text-slate-300 mb-2">
-                  Seu nome
-                </label>
-                <input
-                  type="text"
-                  id="runner-name"
-                  name="nome"
-                  required
-                  placeholder="Ex: João Silva, Paulinho, Ana..."
-                  class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3.5 text-white placeholder-slate-500 focus:outline-none focus:border-bronze focus:ring-1 focus:ring-bronze text-base"
-                >
-              </div>
-              <div>
-                <label for="runner-phone" class="block text-sm text-slate-300 mb-2">
-                  WhatsApp com DDD
-                </label>
-                <p class="text-xs text-slate-500 mb-2">Cada WhatsApp garante um único número de peito — não dá para inscrever de novo com o mesmo telefone.</p>
-                <input
-                  type="tel"
-                  id="runner-phone"
-                  name="telefone"
-                  required
-                  placeholder="(41) 99999-9999"
-                  maxlength="16"
-                  oninput="maskPhone(this)"
-                  class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3.5 text-white placeholder-slate-500 focus:outline-none focus:border-bronze focus:ring-1 focus:ring-bronze text-base font-mono"
-                >
-              </div>
-              </div>
-              <button type="button" onclick="irPasso(2)" class="w-full py-4 rounded-2xl font-extrabold text-black bg-bronze">Continuar</button>
-            </div>
-
-            <div data-step="2" class="hidden space-y-4">
-              <h3 class="text-xl font-bold text-white">Quantos km você vai correr?</h3>
-              <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-2" id="distance-buttons">
-                <button type="button" onclick="setDistance('5km')" class="dist-btn glass-card py-2.5 rounded-xl text-sm font-bold font-mono hover:border-bronze transition-all text-slate-300">5km</button>
-                <button type="button" onclick="setDistance('10km')" class="dist-btn glass-card py-2.5 rounded-xl text-sm font-bold font-mono hover:border-bronze transition-all text-slate-300">10km</button>
-                <button type="button" onclick="setDistance('12km')" class="dist-btn glass-card py-2.5 rounded-xl text-sm font-bold font-mono hover:border-bronze transition-all text-slate-300">12km</button>
-                <button type="button" onclick="setDistance('15km')" class="dist-btn glass-card py-2.5 rounded-xl text-sm font-bold font-mono hover:border-bronze transition-all text-slate-300">15km</button>
-                <button type="button" onclick="setDistance('21km')" class="dist-btn glass-card py-2.5 rounded-xl text-sm font-bold font-mono hover:border-bronze transition-all text-slate-300">21km</button>
-                <button type="button" onclick="setDistance('35km')" class="dist-btn glass-card py-2.5 rounded-xl text-sm font-bold font-mono hover:border-bronze transition-all text-bronze border-bronze/30">35km</button>
-              </div>
-              <input
-                type="text"
-                id="runner-distance"
-                name="distancia"
-                required
-                value="35km"
-                placeholder="Ou digite outra distância (ex: 8km, 7km caminhada...)"
-                class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-bronze text-sm font-mono"
-              >
-              <div class="grid grid-cols-2 gap-2 pt-2">
-                <button type="button" onclick="irPasso(1)" class="py-3.5 rounded-2xl font-bold border border-white/15 text-white">Voltar</button>
-                <button type="button" onclick="irPasso(3)" class="py-3.5 rounded-2xl font-extrabold text-black bg-bronze">Continuar</button>
-              </div>
-            </div>
-
-            <div data-step="3" class="hidden space-y-4">
-              <h3 class="text-xl font-bold text-white">Medalha, almoço e um recado</h3>
-            <div>
-              <label for="runner-slot" class="block text-sm text-slate-300 mb-2">
-                Seu número de peito
-              </label>
-              <select
-                id="runner-slot"
-                name="numero_peito"
-                required
-                class="w-full bg-[#090A0F] border border-white/10 rounded-2xl px-4 py-3.5 text-white focus:outline-none focus:border-bronze text-base font-mono cursor-pointer"
-              >
-                <option value="">Selecione um número vago (1 a 40)...</option>
-                <!-- Filled via JavaScript -->
-              </select>
-              <span class="text-[11px] text-slate-400 block mt-1.5">
-                💡 Dica: Se quiser um número específico, confira a grade acima!
-              </span>
-            </div>
-
-            <!-- Medal Option & Onboarding -->
-            <div class="space-y-3">
-              <p class="text-sm text-slate-300">Quer a medalha de R$ 40?</p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <label class="flex items-center gap-3 p-3.5 rounded-xl bg-white/5 border border-white/10 cursor-pointer">
-                  <input type="radio" name="quer_medalha" value="Sim (R$ 40,00)" checked onchange="toggleMedalOnboarding(true)">
-                  <span class="text-sm font-bold text-white">Quero a medalha</span>
-                </label>
-                <label class="flex items-center gap-3 p-3.5 rounded-xl bg-white/5 border border-white/10 cursor-pointer">
-                  <input type="radio" name="quer_medalha" value="Não" onchange="toggleMedalOnboarding(false)">
-                  <span class="text-sm font-bold text-slate-300">Não quero</span>
-                </label>
-              </div>
-              <div id="medal-onboarding-box" class="rounded-2xl border border-bronze/30 bg-black/40 p-4 space-y-2">
-                <p class="text-sm text-slate-300">Copia o Pix de Luiz Augusto Nogueira e manda o comprovante no WhatsApp.</p>
-                <div class="flex items-center gap-2">
-                  <input type="text" value="080.702.289-62" readonly id="pix-key-form" class="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 font-mono text-bronze font-bold text-sm">
-                  <button type="button" onclick="copyPixFromForm()" id="copy-pix-form-btn" class="bg-bronze text-black font-bold px-4 py-2.5 rounded-xl text-sm whitespace-nowrap">
-                    <span id="copy-form-icon"></span>
-                    <span id="copy-form-text">Copiar Pix</span>
-                  </button>
+            <div data-step="1" class="stack">
+              <h3>Como a gente te chama?</h3>
+              <div class="choice-grid">
+                <div>
+                  <label for="runner-name">Seu nome</label>
+                  <input class="field" type="text" id="runner-name" name="nome" autocomplete="name" required placeholder="Como o pessoal te chama…">
                 </div>
-                <p id="copy-form-feedback" class="text-sm text-emerald-400 hidden">Chave copiada.</p>
+                <div>
+                  <label for="runner-phone">WhatsApp com DDD</label>
+                  <p class="hint" id="phone-hint">Cada WhatsApp fica com um número de peito.</p>
+                  <input class="field" type="tel" id="runner-phone" name="telefone" autocomplete="tel" inputmode="tel" spellcheck="false" required placeholder="(41) 99999-9999" maxlength="16" aria-describedby="phone-hint" oninput="maskPhone(this)">
+                </div>
               </div>
-              <p id="no-medal-box" class="hidden text-sm text-emerald-400">Sem medalha. A corrida é de graça.</p>
+              <button type="button" class="btn-sun" onclick="irPasso(2)">Continuar</button>
             </div>
 
-            <!-- Lunch Option -->
-            <div>
-              <p class="text-sm text-slate-300 mb-2">Vai almoçar depois da corrida?</p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <label class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer">
-                  <input type="radio" name="vai_almoco" value="Sim, com certeza!" checked>
-                  <span class="text-sm text-white">Vou almoçar</span>
-                </label>
-                <label class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer">
-                  <input type="radio" name="vai_almoco" value="Não poderei ficar pro almoço">
-                  <span class="text-sm text-slate-300">Não vou</span>
-                </label>
+            <div data-step="2" class="hidden stack">
+              <h3>Quantos km você vai correr?</h3>
+              <div class="dist-grid" role="group" aria-label="Distâncias da corrida">
+                <button type="button" class="dist-btn" data-dist="5km" aria-pressed="false" onclick="setDistance('5km')">5 km</button>
+                <button type="button" class="dist-btn" data-dist="10km" aria-pressed="false" onclick="setDistance('10km')">10 km</button>
+                <button type="button" class="dist-btn" data-dist="12km" aria-pressed="false" onclick="setDistance('12km')">12 km</button>
+                <button type="button" class="dist-btn" data-dist="15km" aria-pressed="false" onclick="setDistance('15km')">15 km</button>
+                <button type="button" class="dist-btn" data-dist="21km" aria-pressed="false" onclick="setDistance('21km')">21 km</button>
+                <button type="button" class="dist-btn is-on" data-dist="35km" aria-pressed="true" onclick="setDistance('35km')">35 km</button>
+              </div>
+              <label for="runner-distance">Outra distância</label>
+              <input class="field" type="text" id="runner-distance" name="distancia" autocomplete="off" required value="35km" placeholder="Exemplo: 8 km" oninput="marcarDistancia(this.value)">
+              <div class="step-actions">
+                <button type="button" class="btn-ghost" onclick="irPasso(1)">Voltar</button>
+                <button type="button" class="btn-sun" onclick="irPasso(3)">Continuar</button>
               </div>
             </div>
 
-            <div>
-              <label for="runner-message" class="block text-sm text-slate-300 mb-2">
-                Recado pro Guga, se quiser
-              </label>
-              <textarea
-                id="runner-message"
-                name="recado"
-                rows="3"
-                placeholder="Pode deixar em branco"
-                class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-bronze text-sm"
-              ></textarea>
-            </div>
+            <div data-step="3" class="hidden stack">
+              <h3>Medalha, almoço e um recado</h3>
+              <div>
+                <label for="runner-slot">Seu número de peito</label>
+                <select class="field" id="runner-slot" name="numero_peito" autocomplete="off" required aria-describedby="slot-hint">
+                  <option value="">Escolhe um número livre</option>
+                </select>
+                <p class="hint" id="slot-hint">Se quiser um número certo, olha a grade aqui em cima.</p>
+              </div>
 
-            <!-- Submit Button -->
-            <div class="grid grid-cols-2 gap-2">
-              <button type="button" onclick="irPasso(2)" class="py-4 rounded-2xl font-bold border border-white/15 text-white">Voltar</button>
-              <button type="submit" class="py-4 rounded-2xl font-extrabold text-black bg-bronze">Confirmar</button>
-            </div>
-            </div>
+              <fieldset>
+                <legend class="ask">Quer a medalha de R$ 40?</legend>
+                <div class="stack">
+                <div class="choice-grid">
+                  <label class="choice">
+                    <input type="radio" name="quer_medalha" value="Sim (R$ 40,00)" checked onchange="toggleMedalOnboarding(true)">
+                    Quero a medalha
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="quer_medalha" value="Não" onchange="toggleMedalOnboarding(false)">
+                    Não quero
+                  </label>
+                </div>
+                <div id="medal-onboarding-box" class="stack">
+                  <p class="hint" style="margin:0">Copia o Pix de Luiz Augusto Nogueira e manda o comprovante no WhatsApp.</p>
+                  <div class="pix-row">
+                    <input type="text" inputmode="numeric" autocomplete="off" translate="no" value="080.702.289-62" readonly id="pix-key-form" aria-label="Chave Pix">
+                    <button type="button" class="btn-sun" onclick="copyPixFromForm()" id="copy-pix-form-btn">
+                      <span id="copy-form-icon" aria-hidden="true"></span>
+                      <span id="copy-form-text">Copiar Pix</span>
+                    </button>
+                  </div>
+                  <p id="copy-form-feedback" class="copied hidden" role="status">Chave copiada.</p>
+                </div>
+                <p id="no-medal-box" class="hidden fine">Sem medalha. A corrida é de graça.</p>
+                </div>
+              </fieldset>
 
+              <fieldset>
+                <legend class="ask">Vai almoçar depois da corrida?</legend>
+                <div class="stack">
+                <div class="choice-grid">
+                  <label class="choice">
+                    <input type="radio" name="vai_almoco" value="Sim, com certeza!" checked>
+                    Vou almoçar
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="vai_almoco" value="Não poderei ficar pro almoço">
+                    Não vou
+                  </label>
+                </div>
+                </div>
+              </fieldset>
+
+              <div>
+                <label for="runner-message">Recado pro Guga, se quiser</label>
+                <textarea class="field" id="runner-message" name="recado" rows="3" autocomplete="off" placeholder="Pode deixar em branco…"></textarea>
+              </div>
+
+              <div class="step-actions">
+                <button type="button" class="btn-ghost" onclick="irPasso(2)">Voltar</button>
+                <button type="submit" class="btn-sun">Confirmar</button>
+              </div>
+            </div>
           </form>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Message Wall -->
-    <section class="py-12 bg-black/40 border-t border-white/5">
-      <div class="max-w-4xl mx-auto px-4">
-        <div class="text-center mb-8">
-          <h3 class="text-2xl font-bold text-white tracking-tight">
-            Recados pro Guga
-          </h3>
-          <p class="text-sm text-slate-400 mt-2 max-w-md mx-auto">
-            O que o pessoal escreveu ao confirmar o número.
-          </p>
-        </div>
-
-        <div id="mural-mensagens" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <!-- Rendered via JavaScript -->
         </div>
       </div>
     </section>
 
+    <section class="sheet" id="recados">
+      <div class="wrap">
+        <h2 class="section-title">Recados</h2>
+        <p class="lede">O que o pessoal escreveu ao confirmar.</p>
+        <div id="mural-mensagens" class="mural" style="margin-top:1.25rem"></div>
+      </div>
+    </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="py-10 border-t border-white/5 text-center text-xs text-slate-500 space-y-2">
-    <p>
-      <strong class="text-slate-300">Corrida de Aniversário GUGA 35K</strong> • Matinhos - PR • 20 de Novembro
-    </p>
-    <p class="text-[11px]">
-      Criado com carinho para celebrar os 35 anos do Luiz "Guga" Nogueira.
-    </p>
+  <footer class="site-footer" id="site-footer">
+    <img src="assets/images/logo-header.png" alt="GUGA 35K" width="981" height="144" loading="lazy" decoding="async">
+    <p>20 de novembro. Matinhos, PR.</p>
+    <p>Corrida de aniversário do Luiz “Guga” Nogueira.</p>
   </footer>
 
-  <!-- Modal de Confirmação e Redirecionamento WhatsApp -->
-  <div id="modal-sucesso" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/85 backdrop-blur-md">
-    <div class="flex min-h-full items-center justify-center p-4">
-    <div class="glass-card max-w-md w-full rounded-3xl p-6 sm:p-8 border border-bronze/40 shadow-2xl space-y-5 text-center relative">
-      
-      <div class="w-20 h-20 rounded-2xl bg-bronze/10 border-2 border-bronze flex flex-col items-center justify-center mx-auto shadow-lg shadow-bronze/20">
-        <span class="text-[9px] font-mono text-slate-400 uppercase tracking-widest">Número de Peito</span>
-        <span id="modal-big-bib" class="text-3xl font-black text-bronze font-mono leading-none">#—</span>
-      </div>
-
-      <div>
-        <span class="text-xs font-mono text-bronze uppercase tracking-widest font-bold block mb-1">Inscrição Reservada!</span>
-        <h3 class="text-2xl font-black text-white" id="modal-title">Você está no Pelotão!</h3>
-        <p class="text-xs text-slate-400 mt-1">Sua vaga está garantida na lista oficial.</p>
-      </div>
-
-      <!-- Resumo da Inscrição -->
-      <div class="bg-black/60 rounded-2xl p-4 border border-white/5 text-left text-xs font-mono space-y-2 text-slate-300">
-        <div class="flex justify-between"><span class="text-slate-500">Atleta:</span><span class="text-white font-bold" id="modal-resumo-nome"></span></div>
-        <div class="flex justify-between"><span class="text-slate-500">WhatsApp:</span><span class="text-white font-bold" id="modal-resumo-phone"></span></div>
-        <div class="flex justify-between"><span class="text-slate-500">Número de Peito:</span><span class="text-bronze font-bold" id="modal-resumo-slot"></span></div>
-        <div class="flex justify-between"><span class="text-slate-500">Distância:</span><span class="text-white font-bold" id="modal-resumo-dist"></span></div>
-        <div class="flex justify-between"><span class="text-slate-500">Medalha:</span><span class="text-white font-bold" id="modal-resumo-medal"></span></div>
-        <div class="flex justify-between"><span class="text-slate-500">Almoço:</span><span class="text-white font-bold" id="modal-resumo-lunch"></span></div>
-      </div>
-
-      <!-- Lembrete Pix se escolheu medalha -->
-      <div id="modal-pix-box" class="bg-bronze/10 border border-bronze/30 rounded-2xl p-3.5 text-xs text-slate-300 space-y-2 text-left">
-        <span class="text-bronze font-bold block font-mono">⚠️ PAGAMENTO DA MEDALHA (R$ 40,00)</span>
-        <p class="text-[11px] leading-tight text-slate-300">Faça o Pix de R$ 40,00 e anexe o comprovante na conversa do WhatsApp com o Guga!</p>
-        <div class="flex items-center gap-2">
-          <input type="text" value="080.702.289-62" readonly id="modal-pix-input" class="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-2 text-xs font-mono text-bronze font-bold select-all">
-          <button type="button" onclick="copyPixFromModal()" id="modal-copy-pix-btn" class="bg-bronze text-black font-bold px-3 py-2 rounded-lg text-xs font-mono whitespace-nowrap">Copiar Pix</button>
+  <div id="modal-sucesso" class="fixed inset-0 hidden overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <div class="flex min-h-full items-end sm:items-center justify-center p-4">
+      <div class="modal-panel">
+        <p class="modal-bib" id="modal-big-bib">#—</p>
+        <h2 id="modal-title" class="section-title" style="font-size:1.7rem;margin-top:0.6rem">Você está no pelotão</h2>
+        <p class="fine">Seu número está na lista.</p>
+        <div class="summary">
+          <div><span>Nome</span><span id="modal-resumo-nome"></span></div>
+          <div><span>WhatsApp</span><span id="modal-resumo-phone"></span></div>
+          <div><span>Peito</span><span id="modal-resumo-slot"></span></div>
+          <div><span>Distância</span><span id="modal-resumo-dist"></span></div>
+          <div><span>Medalha</span><span id="modal-resumo-medal"></span></div>
+          <div><span>Almoço</span><span id="modal-resumo-lunch"></span></div>
         </div>
+        <div id="modal-pix-box" class="stack" style="margin-top:1rem">
+          <p class="hint" style="margin:0">Pix da medalha, R$ 40. Manda o comprovante na conversa.</p>
+          <div class="pix-row">
+            <input type="text" inputmode="numeric" autocomplete="off" translate="no" value="080.702.289-62" readonly id="modal-pix-input" aria-label="Chave Pix">
+            <button type="button" class="btn-sun" onclick="copyPixFromModal()" id="modal-copy-pix-btn">Copiar Pix</button>
+          </div>
+        </div>
+        <a id="modal-zap-btn" class="btn-zap" href="#" target="_blank" rel="noopener noreferrer">Abrir WhatsApp<span class="sr-only">, abre em outra aba</span></a>
+        <button type="button" class="btn-text" onclick="fecharModal()">Continuar no site</button>
       </div>
-
-      <!-- Botão Gigante WhatsApp -->
-      <div class="space-y-2.5 pt-2">
-        <a 
-          id="modal-zap-btn" 
-          href="#" 
-          target="_blank" 
-          class="w-full py-4 px-6 rounded-2xl font-black text-black bg-emerald-400 hover:bg-emerald-300 active:scale-95 transition-all text-base flex items-center justify-center gap-2.5 shadow-lg shadow-emerald-500/25"
-        >
-          <span>💬</span> Abrir WhatsApp do Guga Agora
-        </a>
-        <button 
-          type="button" 
-          onclick="fecharModal()" 
-          class="w-full py-2.5 text-xs text-slate-400 hover:text-white transition-all font-mono cursor-pointer"
-        >
-          Continuar navegando no site
-        </button>
-      </div>
-
-    </div>
     </div>
   </div>
+
 
   <!-- Main Script -->
   <script>
@@ -815,6 +1158,7 @@
 
     let runnersCache = {};
     let listaPronta = false;
+    let focoAntesModal = null;
 
     function whenDb() {
       if (window.gugaDb) return Promise.resolve(window.gugaDb);
@@ -839,9 +1183,7 @@
       const status = document.getElementById('pelotao-status');
       if (!status) return;
       status.textContent = texto;
-      status.className = erro
-        ? 'text-sm text-red-400 font-mono mb-4'
-        : 'text-sm text-slate-400 font-mono mb-4';
+      status.className = erro ? 'note is-error' : 'note';
     }
 
     async function loadRunners() {
@@ -869,7 +1211,7 @@
       });
       runnersCache = next;
       listaPronta = true;
-      setPelotaoStatus('Lista ao vivo. Quando alguém confirma, o número fecha aqui pra todo mundo.', false);
+      setPelotaoStatus('A lista atualiza quando alguém confirma.', false);
       renderPelotao();
     }
 
@@ -887,6 +1229,16 @@
       });
     }
 
+    function bumpStat(id, value) {
+      const el = document.getElementById(id);
+      const next = String(value);
+      if (el.textContent === next) return;
+      el.textContent = next;
+      el.classList.remove('bump');
+      void el.offsetWidth;
+      el.classList.add('bump');
+    }
+
     // Render Pelotão Grid and Select
     function renderPelotao() {
       if (!listaPronta) return;
@@ -896,7 +1248,7 @@
       const selectedBefore = select.value;
 
       grid.innerHTML = '';
-      select.innerHTML = '<option value="">Selecione um número vago (1 a 40)...</option>';
+      select.innerHTML = '<option value="">Escolhe um número livre</option>';
 
       let totalConfirmados = 0;
       const MAX_SLOTS = 40;
@@ -907,50 +1259,47 @@
         if (isOccupied) totalConfirmados++;
 
         // Grid Card
-        const card = document.createElement('div');
+        let card = document.createElement('div');
         if (isOccupied) {
           const isGuga = i === 1;
-          card.className = `glass-card rounded-2xl p-3.5 border ${isGuga ? 'bib-number-guga' : 'bib-number'} relative overflow-hidden transition-all`;
+          card.className = 'bib' + (isGuga ? ' bib-guga' : '');
+          const medalha = medalhaLabel(runner) ? '<p class="bib-meta">Com medalha</p>' : '';
+          const tag = isGuga ? '<p class="bib-meta">Aniversariante</p>' : '';
           card.innerHTML = `
-            <div class="flex items-center justify-between mb-1.5">
-              <span class="font-mono text-xs font-bold px-2 py-0.5 rounded-md ${isGuga ? 'bg-bronze text-black' : 'bg-bronze/20 text-bronze'}">
-                #${i}
-              </span>
-              <span class="distance-tag text-xs font-mono font-bold px-2 py-0.5 rounded-md">
-                ${runner.distance}
-              </span>
+            <div class="bib-top">
+              <span class="bib-num">#${i}</span>
+              <span class="bib-km">${esc(runner.distance)}</span>
             </div>
-            <div class="font-bold text-sm text-white truncate">${runner.name}</div>
-            <div class="text-[11px] text-slate-400 flex items-center justify-between mt-1">
-              <span>${medalhaLabel(runner) ? '🏅 Medalha' : '🏃‍♂️ Atleta'}</span>
-              <span class="text-emerald-400">✓ Confirmado</span>
-            </div>
+            <p class="bib-name">${esc(runner.name)}</p>
+            ${tag}${medalha}
           `;
+          card.title = runner.name;
+          card.setAttribute('aria-label', 'Número ' + i + ', ' + runner.name + ', ' + runner.distance + (isGuga ? ', aniversariante' : '') + (medalhaLabel(runner) ? ', com medalha' : ''));
         } else {
-          // Available Slot
-          card.className = 'glass-card glass-card-hover rounded-2xl p-3.5 border border-dashed border-white/20 hover:border-bronze cursor-pointer text-center group transition-all';
+          card = document.createElement('button');
+          card.type = 'button';
+          card.className = 'bib bib-free';
+          card.setAttribute('aria-label', 'Escolher número ' + i);
           card.onclick = () => selectSlotFromGrid(i);
           card.innerHTML = `
-            <div class="font-mono text-xs text-slate-500 group-hover:text-bronze font-bold mb-1">
-              #${i}
-            </div>
-            <div class="text-xs text-slate-400 group-hover:text-white font-medium">
-              Vaga Aberta
-            </div>
-            <div class="text-[11px] text-bronze/80 group-hover:text-bronze mt-1 font-semibold flex items-center justify-center gap-1">
-              <span>+</span> Escolher
-            </div>
+            <span class="bib-num">#${i}</span>
+            <span class="bib-action">Escolher</span>
           `;
 
-          // Dropdown Option
           const option = document.createElement('option');
           option.value = i;
-          option.textContent = `#${i} - Vaga Disponível`;
+          option.textContent = `Número ${i}`;
           select.appendChild(option);
         }
 
+        if (!grid.dataset.seen) {
+          card.classList.add('bib-in');
+          card.style.animationDelay = Math.min((i - 1) * 16, 400) + 'ms';
+          card.addEventListener('animationend', () => card.classList.remove('bib-in'), { once: true });
+        }
         grid.appendChild(card);
       }
+      grid.dataset.seen = '1';
 
       if (selectedBefore && select.querySelector('option[value="' + selectedBefore + '"]')) {
         select.value = selectedBefore;
@@ -959,8 +1308,8 @@
       }
 
       // Update Stats
-      document.getElementById('stat-confirmados').textContent = totalConfirmados;
-      document.getElementById('stat-livres').textContent = MAX_SLOTS - totalConfirmados;
+      bumpStat('stat-confirmados', totalConfirmados);
+      bumpStat('stat-livres', MAX_SLOTS - totalConfirmados);
 
       // Render Message Wall
       renderMural(runners);
@@ -971,16 +1320,39 @@
       select.value = slotNum;
 
       // Smooth scroll to form
-      document.getElementById('inscricao').scrollIntoView({ behavior: 'smooth' });
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.getElementById('inscricao').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+
+      const passo3 = document.querySelector('[data-step="3"]');
+      if (passo3 && !passo3.classList.contains('hidden')) {
+        document.getElementById('runner-slot').focus();
+      } else {
+        document.getElementById('runner-name').focus();
+      }
 
       // Visual feedback
-      select.classList.add('ring-2', 'ring-bronze');
+      select.classList.add('slot-picked');
       setTimeout(() => {
-        select.classList.remove('ring-2', 'ring-bronze');
+        select.classList.remove('slot-picked');
       }, 1500);
     }
 
-    function mostrarPasso(n) {
+    function limparInvalidos() {
+      document.querySelectorAll('[aria-invalid="true"]').forEach((el) => el.removeAttribute('aria-invalid'));
+    }
+
+    function mostrarErro(texto, campoId) {
+      const erro = document.getElementById('passo-erro');
+      limparInvalidos();
+      if (erro) erro.textContent = texto;
+      const campo = campoId ? document.getElementById(campoId) : null;
+      if (!campo) return;
+      campo.setAttribute('aria-invalid', 'true');
+      const passo = campo.closest('[data-step]');
+      if (!passo || !passo.classList.contains('hidden')) campo.focus();
+    }
+
+    function mostrarPasso(n, semFoco) {
       document.querySelectorAll('[data-step]').forEach((el) => {
         el.classList.toggle('hidden', Number(el.dataset.step) !== n);
       });
@@ -988,25 +1360,31 @@
       if (label) label.textContent = 'Passo ' + n + ' de 3';
       const erro = document.getElementById('passo-erro');
       if (erro) erro.textContent = '';
+      limparInvalidos();
+      if (semFoco) return;
+      const titulo = document.querySelector('[data-step="' + n + '"] h3');
+      if (titulo) {
+        titulo.tabIndex = -1;
+        titulo.focus();
+      }
     }
 
     function irPasso(n) {
       const atual = [...document.querySelectorAll('[data-step]')].find((el) => !el.classList.contains('hidden'));
       const de = atual ? Number(atual.dataset.step) : 1;
-      const erro = document.getElementById('passo-erro');
       if (n > de && de === 1) {
         const nome = document.getElementById('runner-name').value.trim();
         let digits = document.getElementById('runner-phone').value.replace(/\D/g, '');
         if (digits.startsWith('55') && digits.length > 11) digits = digits.slice(2);
-        if (!nome) { erro.textContent = 'Escreve teu nome.'; return; }
-        if (digits.length < 10 || digits.length > 11) { erro.textContent = 'WhatsApp com DDD. Exemplo: 41 99999-9999'; return; }
+        if (!nome) { mostrarErro('Escreve teu nome.', 'runner-name'); return; }
+        if (digits.length < 10 || digits.length > 11) { mostrarErro('WhatsApp com DDD. Exemplo: 41 99999-9999', 'runner-phone'); return; }
       }
       if (n > de && de === 2 && !document.getElementById('runner-distance').value.trim()) {
-        erro.textContent = 'Escolhe ou escreve a distância.';
+        mostrarErro('Escolhe ou escreve a distância.', 'runner-distance');
         return;
       }
       if (n > de && de === 2 && !document.getElementById('runner-slot').value) {
-        erro.textContent = 'Escolhe um número de peito na lista.';
+        mostrarErro('Escolhe um número de peito na lista.', 'runner-slot');
         return;
       }
       mostrarPasso(n);
@@ -1014,14 +1392,14 @@
 
     function setDistance(dist) {
       document.getElementById('runner-distance').value = dist;
+      marcarDistancia(dist);
+    }
 
-      // Update button styles
-      document.querySelectorAll('.dist-btn').forEach(btn => {
-        if (btn.textContent.trim() === dist) {
-          btn.classList.add('border-bronze', 'text-bronze');
-        } else {
-          btn.classList.remove('border-bronze', 'text-bronze');
-        }
+    function marcarDistancia(dist) {
+      document.querySelectorAll('.dist-btn').forEach((btn) => {
+        const on = btn.dataset.dist === dist;
+        btn.classList.toggle('is-on', on);
+        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
       });
     }
 
@@ -1072,14 +1450,14 @@
         .filter((r) => textoRecado(r.note));
 
       if (!msgs.length) {
-        mural.innerHTML = '<p class="sm:col-span-2 text-center text-slate-400 py-8">Ainda não tem recado. Confirma seu número e deixa um.</p>';
+        mural.innerHTML = '<p class="empty-note">Ainda não tem recado.</p>';
         return;
       }
 
       mural.innerHTML = msgs.map((r) => `
-        <article class="glass-card rounded-2xl p-5 border border-white/5">
-          <p class="text-base text-white leading-relaxed">${esc(textoRecado(r.note))}</p>
-          <p class="mt-3 text-sm text-bronze">#${esc(r.slot)} ${esc(r.name)}, ${esc(r.distance)}</p>
+        <article class="note-card">
+          <p>${esc(textoRecado(r.note))}</p>
+          <p class="note-by">#${esc(r.slot)} ${esc(r.name)}, ${esc(r.distance)}</p>
         </article>
       `).join('');
     }
@@ -1087,6 +1465,12 @@
     // Form Submission: Confetti + Modal + WhatsApp Redirect
     async function handleInscricao(e) {
       e.preventDefault();
+      const passoAtual = [...document.querySelectorAll('[data-step]')].find((el) => !el.classList.contains('hidden'));
+      const nAtual = passoAtual ? Number(passoAtual.dataset.step) : 1;
+      if (nAtual < 3) {
+        irPasso(nAtual + 1);
+        return;
+      }
 
       const name = document.getElementById('runner-name').value.trim();
       const phone = document.getElementById('runner-phone').value.trim();
@@ -1107,26 +1491,27 @@
       const note = document.getElementById('runner-message').value.trim();
 
       if (!slot) {
-        alert('Por favor, escolha um número de peito vago no pelotão!');
+        mostrarErro('Escolhe um número de peito na lista.', 'runner-slot');
         return;
       }
 
       if (!listaPronta) {
-        alert('A lista ainda não carregou. Espera um segundo e tenta de novo.');
+        mostrarErro('A lista ainda não carregou. Espera um segundo e tenta de novo.');
         return;
       }
 
       const digits = phone.replace(/\D/g, '');
       if (digits.length < 10 || digits.length > 11) {
-        alert('Informe um WhatsApp com DDD.');
+        mostrarPasso(1, true);
+        mostrarErro('WhatsApp com DDD. Exemplo: 41 99999-9999', 'runner-phone');
         return;
       }
 
       const submitBtn = e.target.querySelector('button[type="submit"]');
-      const labelOriginal = 'Confirmar Presença & Enviar no WhatsApp';
+      const labelOriginal = 'Confirmar';
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Confirmando...';
+        submitBtn.textContent = 'Confirmando…';
       }
 
       try {
@@ -1142,14 +1527,14 @@
         });
 
         if (error) {
-          alert(mensagemErro(error));
+          mostrarErro(mensagemErro(error), 'runner-slot');
           await loadRunners();
           return;
         }
 
         await loadRunners();
       } catch (err) {
-        alert('Sem conexão agora. Tenta de novo em alguns segundos.');
+        mostrarErro('Sem conexão agora. Tenta de novo em alguns segundos.');
         return;
       } finally {
         if (submitBtn) {
@@ -1159,12 +1544,12 @@
       }
 
       // Confetti Effect
-      if (typeof confetti === 'function') {
+      if (typeof confetti === 'function' && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
         confetti({
           particleCount: 120,
           spread: 80,
           origin: { y: 0.6 },
-          colors: ['#D97706', '#4C1D95', '#1E3A8A', '#ffffff']
+          colors: ['#F15A24', '#12263F', '#1B4F8A', '#F6F3EC']
         });
       }
 
@@ -1208,14 +1593,72 @@
 
       const zapBtn = document.getElementById('modal-zap-btn');
       zapBtn.href = zapUrl;
+      abrirModal();
+    }
 
+    function abrirModal() {
+      focoAntesModal = document.activeElement;
       const modal = document.getElementById('modal-sucesso');
+      ['site-header', 'conteudo', 'site-footer'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.inert = true;
+      });
+      modal.hidden = false;
       modal.classList.remove('hidden');
+      document.getElementById('modal-zap-btn').focus();
+      document.addEventListener('keydown', trapModal);
+    }
+
+    function trapModal(e) {
+      const modal = document.getElementById('modal-sucesso');
+      if (modal.hidden) return;
+      if (e.key === 'Escape') {
+        fecharModal();
+        return;
+      }
+      if (e.key !== 'Tab') return;
+      const focaveis = [...modal.querySelectorAll('a, button, input')].filter((el) => !el.disabled && el.offsetParent !== null);
+      if (!focaveis.length) return;
+      const primeiro = focaveis[0];
+      const ultimo = focaveis[focaveis.length - 1];
+      if (e.shiftKey && document.activeElement === primeiro) {
+        e.preventDefault();
+        ultimo.focus();
+      } else if (!e.shiftKey && document.activeElement === ultimo) {
+        e.preventDefault();
+        primeiro.focus();
+      }
     }
 
     function fecharModal() {
       const modal = document.getElementById('modal-sucesso');
       modal.classList.add('hidden');
+      modal.hidden = true;
+      ['site-header', 'conteudo', 'site-footer'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.inert = false;
+      });
+      document.removeEventListener('keydown', trapModal);
+      if (focoAntesModal && focoAntesModal.focus) focoAntesModal.focus();
+    }
+
+    function toggleHeroVideo() {
+      const video = document.querySelector('.hero-media video');
+      const btn = document.getElementById('hero-pause');
+      if (!video || !btn) return;
+      if (video.paused) {
+        video.play().then(() => {
+          btn.textContent = 'Pausar vídeo';
+          btn.setAttribute('aria-pressed', 'false');
+        }).catch(() => {
+          btn.textContent = 'Continuar vídeo';
+          btn.setAttribute('aria-pressed', 'true');
+        });
+      } else {
+        video.pause();
+        btn.textContent = 'Continuar vídeo';
+        btn.setAttribute('aria-pressed', 'true');
+      }
     }
 
     // Copy Pix Functions
@@ -1243,16 +1686,16 @@
           const fb = document.getElementById(feedbackId);
           if (fb) fb.classList.remove('hidden');
         }
-        if (btn) btn.classList.add('bg-emerald-500', 'text-white');
+        if (btn) btn.classList.add('is-copied');
 
         setTimeout(() => {
           if (textId) document.getElementById(textId).textContent = 'Copiar Pix';
-          if (iconId) document.getElementById(iconId).textContent = '📋';
+          if (iconId) document.getElementById(iconId).textContent = '';
           if (feedbackId) {
             const fb = document.getElementById(feedbackId);
             if (fb) fb.classList.add('hidden');
           }
-          if (btn) btn.classList.remove('bg-emerald-500', 'text-white');
+          if (btn) btn.classList.remove('is-copied');
         }, 3000);
       });
     }
@@ -1301,11 +1744,27 @@
       loadRunners();
       watchRunners();
       const header = document.getElementById('site-header');
-      const onScroll = () => header.classList.toggle('glass-card', scrollY > 24);
+      const onScroll = () => header.classList.toggle('is-solid', scrollY > 24);
       onScroll();
       addEventListener('scroll', onScroll, { passive: true });
       const heroVideo = document.querySelector('.hero-media video');
-      if (heroVideo) heroVideo.play().catch(() => {});
+      const pauseBtn = document.getElementById('hero-pause');
+      if (heroVideo && pauseBtn && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        heroVideo.play().catch(() => {
+          pauseBtn.textContent = 'Continuar vídeo';
+          pauseBtn.setAttribute('aria-pressed', 'true');
+        });
+      }
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          });
+        }, { threshold: 0.2 });
+        document.querySelectorAll('.sheet .wrap > *').forEach((el) => io.observe(el));
+      }
     });
   </script>
 </body>
