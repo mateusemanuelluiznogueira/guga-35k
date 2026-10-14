@@ -13,26 +13,28 @@
   <meta name="description" content="20 de novembro, 7h30, orla de Matinhos. 35 anos, 35 km, e cada um no seu ritmo.">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg?v=2">
-  <link rel="alternate icon" href="assets/images/favicon.svg?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png?v=3">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/images/favicon-192.png?v=3">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png?v=3">
 
   <!-- OpenGraph / WhatsApp / Telegram / Social Preview -->
   <meta property="og:site_name" content="Corrida de Aniversário GUGA 35K">
   <meta property="og:title" content="Corrida de Aniversário GUGA 35K | Matinhos - PR">
-  <meta property="og:description" content="20 de Novembro às 07:30. 35 Anos • 35 Quilômetros • 1 Desafio entre amigos na orla de Matinhos-PR. Escolha seu número de peito!">
+  <meta property="og:description" content="20 de novembro, 7h30, orla de Matinhos. 35 anos, 35 km, e cada um no seu ritmo.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://corrida-guga-35k.netlify.app/">
-  <meta property="og:image" content="https://corrida-guga-35k.netlify.app/assets/images/guga_medal.jpg?v=2">
-  <meta property="og:image:secure_url" content="https://corrida-guga-35k.netlify.app/assets/images/guga_medal.jpg?v=2">
-  <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:width" content="1080">
-  <meta property="og:image:height" content="1240">
+  <meta property="og:image" content="https://corrida-guga-35k.netlify.app/assets/images/og.png?v=3">
+  <meta property="og:image:secure_url" content="https://corrida-guga-35k.netlify.app/assets/images/og.png?v=3">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="GUGA 35K, corrida de aniversário em Matinhos">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Corrida de Aniversário GUGA 35K | Matinhos - PR">
-  <meta name="twitter:description" content="20 de Novembro às 07:30. 35 Anos • 35 Quilômetros • 1 Desafio entre amigos na orla de Matinhos-PR.">
-  <meta name="twitter:image" content="https://corrida-guga-35k.netlify.app/assets/images/guga_medal.jpg?v=2">
+  <meta name="twitter:description" content="20 de novembro, 7h30, orla de Matinhos. 35 anos, 35 km, e cada um no seu ritmo.">
+  <meta name="twitter:image" content="https://corrida-guga-35k.netlify.app/assets/images/og.png?v=3">
 
   <!-- Tailwind CSS CDN + Google Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -572,7 +574,7 @@
     }
 
     .site-footer img {
-      width: 168px;
+      width: 220px;
       height: auto;
       margin: 0 auto 0.8rem;
     }
@@ -856,19 +858,6 @@
 
     .hero-cta { margin-top: 1.25rem; min-height: 48px; }
 
-    .hero-pause {
-      position: absolute;
-      z-index: 2;
-      right: max(1rem, env(safe-area-inset-right));
-      bottom: max(1rem, env(safe-area-inset-bottom));
-      min-height: 44px;
-      padding: 0.45rem 0.85rem;
-      border-radius: 999px;
-      background: rgba(18, 38, 63, 0.82);
-      color: #fff;
-      font-weight: 700;
-    }
-
     @media (hover: none) {
       .chip:hover,
       .bib-free:hover,
@@ -882,8 +871,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .hero-media video,
-      .hero-pause { display: none; }
+      .hero-media video { display: none; }
       .hero-copy,
       .sheet .wrap > *,
       .sheet .wrap > *.in,
@@ -924,7 +912,6 @@
         </video>
       </div>
       <div class="hero-shade" aria-hidden="true"></div>
-      <button type="button" class="hero-pause" id="hero-pause" aria-pressed="false" onclick="toggleHeroVideo()">Pausar vídeo</button>
       <div class="hero-copy">
         <p class="hero-meta">20 NOV · 07:30 · MATINHOS</p>
         <h1>35 anos. 1 km por ano.<br>Você no seu ritmo.</h1>
@@ -1115,7 +1102,7 @@
   </main>
 
   <footer class="site-footer" id="site-footer">
-    <img src="assets/images/logo-header.png" alt="GUGA 35K" width="981" height="144" loading="lazy" decoding="async">
+    <img src="assets/images/logo-stacked.png" alt="GUGA 35K, corrida de aniversário em Matinhos" width="866" height="722" loading="lazy" decoding="async">
     <p>20 de novembro. Matinhos, PR.</p>
     <p>Corrida de aniversário do Luiz “Guga” Nogueira.</p>
   </footer>
@@ -1642,25 +1629,6 @@
       if (focoAntesModal && focoAntesModal.focus) focoAntesModal.focus();
     }
 
-    function toggleHeroVideo() {
-      const video = document.querySelector('.hero-media video');
-      const btn = document.getElementById('hero-pause');
-      if (!video || !btn) return;
-      if (video.paused) {
-        video.play().then(() => {
-          btn.textContent = 'Pausar vídeo';
-          btn.setAttribute('aria-pressed', 'false');
-        }).catch(() => {
-          btn.textContent = 'Continuar vídeo';
-          btn.setAttribute('aria-pressed', 'true');
-        });
-      } else {
-        video.pause();
-        btn.textContent = 'Continuar vídeo';
-        btn.setAttribute('aria-pressed', 'true');
-      }
-    }
-
     // Copy Pix Functions
     function copyPixFromForm() {
       const pixInput = document.getElementById('pix-key-form');
@@ -1748,12 +1716,8 @@
       onScroll();
       addEventListener('scroll', onScroll, { passive: true });
       const heroVideo = document.querySelector('.hero-media video');
-      const pauseBtn = document.getElementById('hero-pause');
-      if (heroVideo && pauseBtn && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        heroVideo.play().catch(() => {
-          pauseBtn.textContent = 'Continuar vídeo';
-          pauseBtn.setAttribute('aria-pressed', 'true');
-        });
+      if (heroVideo && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        heroVideo.play().catch(() => {});
       }
       if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
         const io = new IntersectionObserver((entries) => {
