@@ -86,7 +86,7 @@ Regras relevantes:
 3. **watchRunners:** canal Realtime + poll 20s + refresh ao voltar à aba.
 4. **handleInscricao:** valida passos → `rpc('registrar_atleta', …)` → reload → confetti → modal com `wa.me/554197333676`.
 
-Telefone do organizador e Pix estão **hardcoded** no JS (mudanças exigem editar `index.html`).
+Zap, Pix, slots, preço da medalha e data do countdown ficam em **`assets/js/event.config.js`** (ver `docs/EVENTO.md`). A anon key do Supabase continua no `<script type="module">` do `index.html`.
 
 ## Segurança
 

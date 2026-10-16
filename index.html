@@ -816,6 +816,13 @@
 
     .btn-zap:active { transform: scale(0.98); }
 
+    .pelotao-retry {
+      display: inline;
+      margin-left: 0.35rem;
+      font-size: inherit;
+      vertical-align: baseline;
+    }
+
     .btn-text {
       display: block;
       width: 100%;
@@ -1110,7 +1117,7 @@
           <p class="price">R$ 40 <span>por medalha</span></p>
           <p class="fine" style="margin-top:0">Pix de Luiz Augusto Nogueira</p>
           <div class="pix-row" style="margin-top:0.7rem">
-            <input id="pix-key-input" type="text" inputmode="numeric" autocomplete="off" translate="no" value="080.702.289-62" readonly aria-label="Chave Pix">
+            <input id="pix-key-input" type="text" inputmode="numeric" autocomplete="off" translate="no" value="080.702.289-62" readonly aria-label="Chave Pix" data-event-pix>
             <button type="button" id="copy-pix-btn" class="btn-sun" onclick="copyPixKey()">
               <span id="copy-icon" aria-hidden="true"></span>
               <span id="copy-text">Copiar Pix</span>
@@ -1212,7 +1219,7 @@
                 <div id="medal-onboarding-box" class="stack">
                   <p class="hint" style="margin:0">Copia o Pix de Luiz Augusto Nogueira e manda o comprovante no WhatsApp.</p>
                   <div class="pix-row">
-                    <input type="text" inputmode="numeric" autocomplete="off" translate="no" value="080.702.289-62" readonly id="pix-key-form" aria-label="Chave Pix">
+                    <input type="text" inputmode="numeric" autocomplete="off" translate="no" value="080.702.289-62" readonly id="pix-key-form" aria-label="Chave Pix" data-event-pix>
                     <button type="button" class="btn-sun" onclick="copyPixFromForm()" id="copy-pix-form-btn">
                       <span id="copy-form-icon" aria-hidden="true"></span>
                       <span id="copy-form-text">Copiar Pix</span>
@@ -1287,7 +1294,7 @@
         <div id="modal-pix-box" class="stack" style="margin-top:1rem">
           <p class="hint" style="margin:0">Pix da medalha, R$ 40. Manda o comprovante na conversa.</p>
           <div class="pix-row">
-            <input type="text" inputmode="numeric" autocomplete="off" translate="no" value="080.702.289-62" readonly id="modal-pix-input" aria-label="Chave Pix">
+            <input type="text" inputmode="numeric" autocomplete="off" translate="no" value="080.702.289-62" readonly id="modal-pix-input" aria-label="Chave Pix" data-event-pix>
             <button type="button" class="btn-sun" onclick="copyPixFromModal()" id="modal-copy-pix-btn">Copiar Pix</button>
           </div>
         </div>
@@ -1298,6 +1305,7 @@
   </div>
 
 
+  <script src="assets/js/event.config.js?v=1"></script>
   <!-- Main Script -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
@@ -1307,6 +1315,29 @@
         localStorage.removeItem(k);
       });
     } catch (e) {}
+
+    const EVENTO = window.GUGA_EVENTO || {
+      siteHost: 'corrida-guga-35k.netlify.app',
+      zapPhone: '554197333676',
+      pixKey: '080.702.289-62',
+      medalPriceBrl: 40,
+      maxSlots: 40,
+      birthdaySlot: 1,
+      pollIntervalMs: 20000,
+      eventStart: { year: 2026, month: 10, day: 20, hour: 7, minute: 30 }
+    };
+
+    function medalhaSimLabel() {
+      return 'Sim (R$ ' + EVENTO.medalPriceBrl + ',00)';
+    }
+
+    function syncEventDom() {
+      document.querySelectorAll('[data-event-pix]').forEach((el) => {
+        el.value = EVENTO.pixKey;
+      });
+      const medalSim = document.querySelector('input[name="quer_medalha"][value^="Sim"]');
+      if (medalSim) medalSim.value = medalhaSimLabel();
+    }
 
     let runnersCache = {};
     let listaPronta = false;
@@ -1334,8 +1365,12 @@
     function setPelotaoStatus(texto, erro) {
       const status = document.getElementById('pelotao-status');
       if (!status) return;
-      status.textContent = texto;
       status.className = erro ? 'note is-error' : 'note';
+      if (erro) {
+        status.innerHTML = esc(texto) + ' <button type="button" class="btn-text pelotao-retry" onclick="loadRunners()">Tentar de novo</button>';
+      } else {
+        status.textContent = texto;
+      }
     }
 
     async function loadRunners() {
@@ -1375,7 +1410,7 @@
           })
           .subscribe();
       });
-      setInterval(loadRunners, 20000);
+      setInterval(loadRunners, EVENTO.pollIntervalMs);
       document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'visible') loadRunners();
       });
@@ -1400,9 +1435,9 @@
       select.innerHTML = '<option value="">Escolhe um número livre</option>';
 
       let totalConfirmados = 0;
-      const MAX_SLOTS = 40;
+      const maxSlots = EVENTO.maxSlots;
 
-      for (let i = 1; i <= MAX_SLOTS; i++) {
+      for (let i = 1; i <= maxSlots; i++) {
         const runner = runners[i];
         const isOccupied = !!runner;
         if (isOccupied) totalConfirmados++;
@@ -1410,7 +1445,7 @@
         // Grid Card
         let card = document.createElement('div');
         if (isOccupied) {
-          const isGuga = i === 1;
+          const isGuga = i === EVENTO.birthdaySlot;
           card.className = 'bib' + (isGuga ? ' bib-guga' : '');
           const medalha = medalhaLabel(runner) ? '<p class="bib-meta">Com medalha</p>' : '';
           const tag = isGuga ? '<p class="bib-meta">Aniversariante</p>' : '';
@@ -1452,7 +1487,7 @@
 
       // Update Stats
       bumpStat('stat-confirmados', totalConfirmados);
-      bumpStat('stat-livres', MAX_SLOTS - totalConfirmados);
+      bumpStat('stat-livres', maxSlots - totalConfirmados);
       revealOnce(grid, grid.querySelectorAll('.bib'));
 
       // Render Message Wall
@@ -1622,7 +1657,7 @@
       const distance = document.getElementById('runner-distance').value.trim();
       const slot = document.getElementById('runner-slot').value;
       const medalRadios = document.getElementsByName('quer_medalha');
-      let medal = 'Sim (R$ 40,00)';
+      let medal = medalhaSimLabel();
       for (const r of medalRadios) {
         if (r.checked) medal = r.value;
       }
@@ -1699,7 +1734,7 @@
       }
 
       // Format WhatsApp Message (Construção 100% segura para WhatsApp sem corromper emojis nem caracteres especiais)
-      const zapPhone = '554197333676';
+      const zapPhone = EVENTO.zapPhone;
       const querMedalhaBool = medal.includes('Sim');
       
       const lines = [
@@ -1710,11 +1745,11 @@
         `Numero de Peito: #${slot}`,
         `Distancia: ${distance}`,
         `Medalha: ${medal}`,
-        ...(querMedalhaBool ? ['Pix R$ 40,00: Vou enviar o comprovante nessa conversa'] : []),
+        ...(querMedalhaBool ? ['Pix R$ ' + EVENTO.medalPriceBrl + ',00: Vou enviar o comprovante nessa conversa'] : []),
         `Almoco: ${lunch}`,
         ...(note ? [`Recado: "${note}"`] : []),
         '',
-        'Confirmado pelo site corrida-guga-35k.netlify.app'
+        'Confirmado pelo site ' + EVENTO.siteHost
       ];
 
       const fullMessage = lines.join('\n');
@@ -1828,7 +1863,8 @@
 
     // Countdown Timer
     function initCountdown() {
-      const eventDate = new Date(2026, 10, 20, 7, 30, 0);
+      const start = EVENTO.eventStart;
+      const eventDate = new Date(start.year, start.month, start.day, start.hour, start.minute, 0);
 
       function update() {
         const now = new Date();
@@ -1938,6 +1974,7 @@
 
     // Initialization
     window.addEventListener('DOMContentLoaded', () => {
+      syncEventDom();
       initCountdown();
       initMotion();
       loadRunners();

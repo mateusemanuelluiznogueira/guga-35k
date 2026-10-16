@@ -9,13 +9,15 @@ Leia, nesta ordem:
 1. `docs/PRD.md` — escopo do produto e do evento
 2. `docs/DESIGN_SYSTEM.md` — paleta, tipografia, seções, logos
 3. `docs/ARCHITECTURE.md` — Supabase, deploy, fluxo de dados
-4. Inspecione `index.html` (quase tudo está aí) e `supabase/migrations/`
+4. `assets/js/event.config.js` e `docs/EVENTO.md` — constantes do evento
+5. Inspecione `index.html` (quase tudo está aí) e `supabase/migrations/`
 
 ## Estrutura do repositório
 
 | Caminho | Função |
 |--------|--------|
 | `index.html` | HTML, CSS, JS da página inteira |
+| `assets/js/event.config.js` | Zap, Pix, slots, data do evento (clonar primeiro) |
 | `assets/images/`, `assets/video/` | Mídia estática |
 | `supabase/migrations/` | Schema Postgres, RLS, RPC `registrar_atleta` |
 | `_headers` | Cache no Netlify |
