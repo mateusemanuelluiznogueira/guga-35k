@@ -118,4 +118,4 @@ Falha de CDN ou Supabase → pelotão mostra erro; inscrição não confirma.
 
 ## Manter o Supabase ativo (plano free)
 
-Projetos free podem **pausar** após inatividade. O site usa a função agendada **`netlify/functions/supabase-keepalive.mjs`** (cron diário ~06:15 BRT, produção Netlify). Teste manual: `https://corrida-guga-35k.netlify.app/.netlify/functions/supabase-keepalive`. Visitas ao site também contam como uso.
+Projetos free podem **pausar** após inatividade. O site usa a função agendada **`netlify/functions/supabase-keepalive.mjs`** (cron diário ~06:15 BRT, produção Netlify). Teste manual: `/.netlify/functions/supabase-ping` (público). O agendado `supabase-keepalive` roda só no cron da Netlify. Visitas ao site também contam como uso.
