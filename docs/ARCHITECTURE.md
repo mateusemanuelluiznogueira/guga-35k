@@ -115,3 +115,7 @@ Zap, Pix, slots, preço da medalha e data do countdown ficam em **`assets/js/eve
 - `qskzgjdndyudpbwdyzph.supabase.co`
 
 Falha de CDN ou Supabase → pelotão mostra erro; inscrição não confirma.
+
+## Manter o Supabase ativo (plano free)
+
+Projetos free podem **pausar** após inatividade. O site usa a função agendada **`netlify/functions/supabase-keepalive.mjs`** (cron diário ~06:15 BRT, produção Netlify). Teste manual: `https://corrida-guga-35k.netlify.app/.netlify/functions/supabase-keepalive`. Visitas ao site também contam como uso.
