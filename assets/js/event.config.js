@@ -3,9 +3,11 @@
  * Carregado antes do script principal em index.html.
  */
 window.GUGA_EVENTO = {
+  eventName: 'CORRIDA GUGA 35K',
   siteHost: 'corrida-guga-35k.netlify.app',
   zapPhone: '554197333676',
   pixKey: '080.702.289-62',
+  pixHolder: 'Luiz Augusto Nogueira',
   medalPriceBrl: 40,
   maxSlots: 40,
   /** Número reservado ao aniversariante / organizador */

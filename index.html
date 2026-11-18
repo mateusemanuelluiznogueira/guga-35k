@@ -10,9 +10,11 @@
   <meta http-equiv="Expires" content="0">
   
   <title>Corrida de Aniversário GUGA 35K | Matinhos - PR</title>
-  <meta name="description" content="20 de novembro, 7h30, orla de Matinhos. 35 anos, 35 km, e cada um no seu ritmo.">
+  <meta name="description" content="20 de novembro, 7h30, na orla de Matinhos/PR. Desafio GUGA 35K: escolha seu número de peito (1 a 40), corra no seu ritmo e confirme no WhatsApp.">
+  <link rel="canonical" href="https://corrida-guga-35k.netlify.app/">
 
   <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg?v=3">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png?v=3">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/images/favicon-192.png?v=3">
   <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png?v=3">
@@ -20,7 +22,7 @@
   <!-- OpenGraph / WhatsApp / Telegram / Social Preview -->
   <meta property="og:site_name" content="Corrida de Aniversário GUGA 35K">
   <meta property="og:title" content="Corrida de Aniversário GUGA 35K | Matinhos - PR">
-  <meta property="og:description" content="20 de novembro, 7h30, orla de Matinhos. 35 anos, 35 km, e cada um no seu ritmo.">
+  <meta property="og:description" content="20 de novembro, 7h30, na orla de Matinhos/PR. Desafio GUGA 35K: escolha seu número de peito (1 a 40), corra no seu ritmo e confirme no WhatsApp.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://corrida-guga-35k.netlify.app/">
   <meta property="og:image" content="https://corrida-guga-35k.netlify.app/assets/images/og.png?v=3">
@@ -33,14 +35,38 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Corrida de Aniversário GUGA 35K | Matinhos - PR">
-  <meta name="twitter:description" content="20 de novembro, 7h30, orla de Matinhos. 35 anos, 35 km, e cada um no seu ritmo.">
+  <meta name="twitter:description" content="20 de novembro, 7h30, na orla de Matinhos/PR. Desafio GUGA 35K: escolha seu número de peito (1 a 40), corra no seu ritmo e confirme no WhatsApp.">
   <meta name="twitter:image" content="https://corrida-guga-35k.netlify.app/assets/images/og.png?v=3">
 
-  <!-- Tailwind CSS CDN + Google Fonts -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SportsEvent",
+    "name": "Corrida de Aniversário GUGA 35K",
+    "description": "20 de novembro, 7h30, na orla de Matinhos/PR. Desafio GUGA 35K: escolha seu número de peito (1 a 40), corra no seu ritmo e confirme no WhatsApp.",
+    "startDate": "2026-11-20T07:30:00-03:00",
+    "inLanguage": "pt-BR",
+    "isAccessibleForFree": true,
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+      "@type": "Place",
+      "name": "Pico de Matinhos, Orla de Matinhos / PR",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Matinhos",
+        "addressRegion": "PR",
+        "addressCountry": "BR"
+      }
+    },
+    "url": "https://corrida-guga-35k.netlify.app/",
+    "image": "https://corrida-guga-35k.netlify.app/assets/images/og.png?v=3"
+  }
+  </script>
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,800&family=Barlow:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
@@ -49,42 +75,6 @@
     window.gugaDb = createClient('https://qskzgjdndyudpbwdyzph.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFza3pnamRuZHl1ZHBid2R5enBoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE5MzcyNDUsImV4cCI6MjEwNzUxMzI0NX0.PJGa7ieQS0gBPFIzOmdVHBmMYqIz2FxrHdbcQLFdxl0');
     window.gugaDbReady = true;
     window.dispatchEvent(new Event('guga-db-ready'));
-  </script>
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            obsidian: {
-              DEFAULT: '#090A0F',
-              dark: '#06070B',
-              light: '#1E2028'
-            },
-            bronze: {
-              DEFAULT: '#D97706',
-              dark: '#B45309',
-              light: '#F59E06'
-            },
-            navy: {
-              DEFAULT: '#1E3A8A',
-              dark: '#1E3A8A',
-              light: '#3B82F6'
-            },
-            midnight: {
-              DEFAULT: '#4C1D95',
-              dark: '#3B0764',
-              light: '#7C3AED'
-            }
-          },
-          fontFamily: {
-            display: ['Barlow', 'sans-serif'],
-            sans: ['Barlow', 'sans-serif'],
-            mono: ['IBM Plex Mono', 'monospace']
-          }
-        }
-      }
-    }
   </script>
 
   <style>
@@ -125,6 +115,15 @@
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
     }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body, h1, h2, h3, p, figure, dl, dd { margin: 0; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    button { cursor: pointer; border: 0; background: none; }
+    img, video { max-width: 100%; height: auto; }
+    .min-h-screen { min-height: 100vh; }
+    .hidden, [hidden] { display: none !important; }
 
     a:focus-visible,
     button:focus-visible,
@@ -761,9 +760,24 @@
     }
 
     #modal-sucesso {
+      position: fixed;
+      inset: 0;
+      overflow-y: auto;
       background: rgba(12, 8, 28, 0.72);
       z-index: 80;
       overscroll-behavior: contain;
+    }
+
+    .modal-wrap {
+      display: flex;
+      min-height: 100%;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .modal-wrap { align-items: center; }
     }
 
     .modal-panel {
@@ -869,7 +883,6 @@
     }
 
     @media (min-width: 800px) {
-      .medal-layout { grid-template-columns: 1.15fr 0.85fr; align-items: start; }
       .medal-layout { grid-template-columns: 0.8fr 1.2fr; align-items: center; }
     }
 
@@ -1113,9 +1126,9 @@
           <img class="mark" src="assets/images/logo-icon.png" alt="" width="988" height="535">
           <h2 class="section-title">A medalha</h2>
           <p class="lede">Quem quiser leva a medalha da prova. São <span class="t-sun">R$ 40</span>, o custo da fundição e da fita. A corrida não cobra inscrição.</p>
-          <p class="only-mobile">O Pix é de <span class="t-sea">Luiz Augusto Nogueira</span>. Manda o comprovante no WhatsApp.</p>
+          <p class="only-mobile">O Pix é de <span class="t-sea" data-event-holder>Luiz Augusto Nogueira</span>. Manda o comprovante no WhatsApp.</p>
           <p class="price">R$ 40 <span>por medalha</span></p>
-          <p class="fine" style="margin-top:0">Pix de Luiz Augusto Nogueira</p>
+          <p class="fine" style="margin-top:0">Pix de <span data-event-holder>Luiz Augusto Nogueira</span></p>
           <div class="pix-row" style="margin-top:0.7rem">
             <input id="pix-key-input" type="text" inputmode="numeric" autocomplete="off" translate="no" value="080.702.289-62" readonly aria-label="Chave Pix" data-event-pix>
             <button type="button" id="copy-pix-btn" class="btn-sun" onclick="copyPixKey()">
@@ -1217,7 +1230,7 @@
                   </label>
                 </div>
                 <div id="medal-onboarding-box" class="stack">
-                  <p class="hint" style="margin:0">Copia o Pix de Luiz Augusto Nogueira e manda o comprovante no WhatsApp.</p>
+                  <p class="hint" style="margin:0">Copia o Pix de <span data-event-holder>Luiz Augusto Nogueira</span> e manda o comprovante no WhatsApp.</p>
                   <div class="pix-row">
                     <input type="text" inputmode="numeric" autocomplete="off" translate="no" value="080.702.289-62" readonly id="pix-key-form" aria-label="Chave Pix" data-event-pix>
                     <button type="button" class="btn-sun" onclick="copyPixFromForm()" id="copy-pix-form-btn">
@@ -1277,8 +1290,8 @@
     <img class="footer-logo" src="assets/images/logo-stacked.png" alt="GUGA 35K, corrida de aniversário em Matinhos" width="866" height="722" loading="lazy" decoding="async">
   </footer>
 
-  <div id="modal-sucesso" class="fixed inset-0 hidden overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
-    <div class="flex min-h-full items-end sm:items-center justify-center p-4">
+  <div id="modal-sucesso" class="hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <div class="modal-wrap">
       <div class="modal-panel">
         <p class="modal-bib" id="modal-big-bib">#—</p>
         <h2 id="modal-title" class="section-title" style="font-size:1.7rem;margin-top:0.6rem">Você está no pelotão</h2>
@@ -1317,9 +1330,11 @@
     } catch (e) {}
 
     const EVENTO = window.GUGA_EVENTO || {
+      eventName: 'CORRIDA GUGA 35K',
       siteHost: 'corrida-guga-35k.netlify.app',
       zapPhone: '554197333676',
       pixKey: '080.702.289-62',
+      pixHolder: 'Luiz Augusto Nogueira',
       medalPriceBrl: 40,
       maxSlots: 40,
       birthdaySlot: 1,
@@ -1334,6 +1349,9 @@
     function syncEventDom() {
       document.querySelectorAll('[data-event-pix]').forEach((el) => {
         el.value = EVENTO.pixKey;
+      });
+      document.querySelectorAll('[data-event-holder]').forEach((el) => {
+        if (EVENTO.pixHolder) el.textContent = EVENTO.pixHolder;
       });
       const medalSim = document.querySelector('input[name="quer_medalha"][value^="Sim"]');
       if (medalSim) medalSim.value = medalhaSimLabel();
@@ -1738,7 +1756,7 @@
       const querMedalhaBool = medal.includes('Sim');
       
       const lines = [
-        '*CORRIDA GUGA 35K — INSCRICAO*',
+        '*' + (EVENTO.eventName || 'CORRIDA GUGA 35K') + ' — INSCRICAO*',
         '',
         `Nome: ${name}`,
         `WhatsApp: ${phone}`,
@@ -1879,16 +1897,6 @@
         const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
         const mins = Math.floor((diff / 1000 / 60) % 60);
         const secs = Math.floor((diff / 1000) % 60);
-
-        const cdDays = document.getElementById('cd-days');
-        const cdHours = document.getElementById('cd-hours');
-        const cdMins = document.getElementById('cd-mins');
-        const cdSecs = document.getElementById('cd-secs');
-
-        if (cdDays) cdDays.textContent = String(days).padStart(2, '0');
-        if (cdHours) cdHours.textContent = String(hours).padStart(2, '0');
-        if (cdMins) cdMins.textContent = String(mins).padStart(2, '0');
-        if (cdSecs) cdSecs.textContent = String(secs).padStart(2, '0');
 
         const headerCd = document.getElementById('header-countdown');
         if (headerCd) {

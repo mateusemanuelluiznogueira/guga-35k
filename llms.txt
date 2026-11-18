@@ -1,0 +1,20 @@
+# Corrida de Aniversário GUGA 35K
+
+> 20 de novembro, às 07h30, na orla de Matinhos - PR. 35 anos, 35 km, cada um no seu ritmo.
+
+## Informações confirmadas
+- Data: 20 de novembro de 2026.
+- Concentração: 07h00 no Pico de Matinhos, Matinhos / PR.
+- Largada: 07h30 na orla de Matinhos / PR.
+- Desafio do aniversariante (Guga): 35 km (1 km por ano de vida).
+- Distância dos participantes: livre, de 500 m até 35 km.
+- Pelotão: 40 números de peito (#1 reservado ao Guga; #2 a #40 abertos para escolha no site).
+- Inscrição na corrida: gratuita.
+- Medalha opcional: R$ 40 (preço de custo da fundição e fita), paga via PIX direto para Luiz Augusto Nogueira com envio do comprovante pelo WhatsApp oficial.
+- Almoço opcional após a prova.
+
+## Fluxo no site
+- URL principal: https://corrida-guga-35k.netlify.app/
+- Passo 1: Nome e WhatsApp com DDD (um WhatsApp por número de peito).
+- Passo 2: Escolha ou digitação livre da distância.
+- Passo 3: Escolha do número de peito livre, opção de medalha, almoço e recado opcional -> confirmação no banco e link direto para o WhatsApp oficial.

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /.netlify/
+Sitemap: https://corrida-guga-35k.netlify.app/sitemap.xml
