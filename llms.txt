@@ -8,13 +8,12 @@
 - Largada: 07h30 na orla de Matinhos / PR.
 - Desafio do aniversariante (Guga): 35 km (1 km por ano de vida).
 - Distância dos participantes: livre, de 500 m até 35 km.
-- Pelotão: 40 números de peito (#1 reservado ao Guga; #2 a #40 abertos para escolha no site).
+- Pelotão: 40 números de peito (#1 reservado ao Guga; a edição tinha números de #1 a #40).
 - Inscrição na corrida: gratuita.
 - Medalha opcional: R$ 40 (preço de custo da fundição e fita), paga via PIX direto para Luiz Augusto Nogueira com envio do comprovante pelo WhatsApp oficial.
 - Almoço opcional após a prova.
 
-## Fluxo no site
+## Status da edição
+- Inscrições encerradas.
+- A página mantém o pelotão e os recados da edição.
 - URL principal: https://corrida-guga-35k.netlify.app/
-- Passo 1: Nome e WhatsApp com DDD (um WhatsApp por número de peito).
-- Passo 2: Escolha ou digitação livre da distância.
-- Passo 3: Escolha do número de peito livre, opção de medalha, almoço e recado opcional -> confirmação no banco e link direto para o WhatsApp oficial.
